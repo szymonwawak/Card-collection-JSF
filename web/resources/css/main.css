@@ -1,0 +1,218 @@
+html {
+    font-size: 16px !important;
+}
+
+body {
+    font-size: 16px !important;
+}
+
+.h-100 {
+    height: 100%;
+}
+
+.flex {
+    display: flex;
+}
+
+.align-bottom {
+    align-self: flex-end;
+    bottom: 0;
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center !important;
+    flex-wrap: wrap;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-light {
+    color: #f8f9fa !important;
+}
+
+.row {
+    display: flex;
+}
+
+.justify-content-around {
+    justify-content: space-around !important;
+    flex-wrap: wrap;
+}
+
+#mainNav {
+    border-width: 0;
+    -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    background-color: rgba(0, 0, 0, 0.288);
+    -webkit-transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease;
+}
+
+@media (min-width: 690px) {
+    #mainNav {
+        padding: 16px;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+
+    #mainNav .nav-item a {
+        font-family: 'Bangers' !important;
+        font-size: 30px;
+        padding: 10px 16px;
+        color: rgb(255, 255, 255);
+    }
+
+    #mainNav .nav-login {
+        background-color: rgb(141, 11, 216);
+        padding: 10px;
+    }
+
+    #mainNav .nav-register {
+        background-color: rgb(84, 5, 129);
+        padding: 10px;
+    }
+
+    #mainNav .nav-item:hover a {
+        color: #f4623a;
+    }
+
+    #mainNav .navbar-nav .nav-item:last-child {
+        padding-right: 0;
+    }
+
+    #mainNav.navbar-scrolled {
+        -webkit-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+        background-color: rgba(0, 0, 0, 0.288);
+    }
+
+    #mainNav.navbar-scrolled .nav-item {
+        color: #212529;
+    }
+
+    #mainNav.navbar-scrolled .nav-item:hover {
+        color: #f4623a;
+    }
+}
+
+header.front-header {
+    height: 100vh;
+    padding-top: 10rem;
+    padding-bottom: calc(10rem - 72px);
+    background-image: url("#{resource['images/front-header.jpg']}");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+}
+
+header.front-header h1 {
+    font-size: 2.25rem;
+}
+
+@media (min-width: 992px) {
+    header.front-header {
+        min-height: 40rem;
+        padding-top: 72px;
+        padding-bottom: 0;
+    }
+
+    header.front-header p {
+        font-size: 1.15rem;
+    }
+
+    header.front-header h1 {
+        font-size: 3rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    header.front-header h1 {
+        font-size: 3.5rem;
+    }
+}
+
+.front-header .btn {
+    font-family: 'Bangers';
+    font-weight: 400;
+    font-size: 40px;
+    background-color: #0069d9;
+    border-color: #0062cc;
+    margin-bottom: 30px;
+}
+
+.about-section {
+    background-color: #F2D43E;
+}
+
+.about-section h2, h3, h4, p {
+    font-family: 'Bangers' !important;
+    font-size: 60px;
+}
+
+.about-section p {
+    font-size: 35px;
+}
+
+.about-section h4 {
+    font-size: 40px;
+}
+
+.cards-section {
+    background-color: #573109;
+}
+
+.cards-section p {
+    font-size: 35px;
+}
+
+.cards-section h2 {
+    font-size: 60px;
+    font-family: 'Bangers' !important;
+}
+
+.home-card {
+    width: 100%;
+}
+
+hr.divider {
+    max-width: 3.25rem;
+    border-width: 0.2rem;
+    border-color: #f4623a;
+}
+
+.content {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #E8C86A;
+    min-height: 70vh;
+    font-family: 'Bangers' !important;
+}
+
+.content .card {
+    margin: auto;
+    width: 75vw;
+    border: none;
+}
+
+.content .card-header {
+    background: linear-gradient(60deg, #8CD2C9, #75B2AF);
+    box-shadow: 0 12px 20px -10px rgba(76, 175, 80, .28), 0 4px 20px 0 rgba(0, 0, 0, .12), 0 7px 8px -5px rgba(76, 175, 80, .2);
+    border-radius: 3px !important;
+    margin: -20px 30px 0;
+}
+
+.content .card-content {
+    padding: 30px 60px;
+}
+
+.page-section {
+    padding: 8rem 0;
+}

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui">
+<h:head>
+    <h:outputStylesheet library="css" name="main.css" position="first"/>
+    <link href="https://fonts.googleapis.com/css?family=Bangers|Luckiest+Guy" rel="stylesheet"/>
+</h:head>
+<h:body>
+    <b:navBar position="top" sticky="true" id="mainNav">
+        <div class="container">
+            <b:navbarLinks pull="right" class="main-navbar">
+                <b:navLink class="nav-item nav-login">Zaloguj się</b:navLink>
+                <b:navLink class="nav-item nav-register">Zarejestruj</b:navLink>
+            </b:navbarLinks>
+        </div>
+    </b:navBar>
+    <ui:insert name="content">
+
+    </ui:insert>
+</h:body>
+
+</html>

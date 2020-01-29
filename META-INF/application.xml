@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<application xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+<application xmlns="http://java.sun.com/xml/ns/javaee"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/application_8.xsd"
-             version="8">
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/application_6.xsd"
+             version="6">
 
+    <module id="Card_collection-EJB">
+        <ejb>unnamed.jar</ejb>
+    </module>
     <module id="Card_collection-Web">
         <web>
-            <web-uri>web.war</web-uri>
+            <web-uri>webapp.war</web-uri>
             <context-root>Card collectionWeb</context-root>
         </web>
-    </module>
-    <module id="Card_collection-EJB">
-        <ejb>ejb.jar</ejb>
     </module>
 </application>

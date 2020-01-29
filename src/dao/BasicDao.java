@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class BasicDao<R> {
 
-    protected String selectAll = "SELECT r FROM " + getRecordClass() + " R";
+    protected String selectAll = "SELECT r FROM Card R";
 
     @PersistenceContext
     protected EntityManager entityManager;

@@ -1,11 +1,121 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-   <f:view>
-      <h:outputLabel value="Hello, world"/>
-   </f:view>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:b="http://bootsfaces.net/ui"
+                template="layouts/main.xhtml">
+   <ui:define name="content">
+      <header class="front-header">
+         <div class="container h-100">
+            <div class="row h-100 flex justify-content-center">
+               <div class="col-lg-8 align-bottom text-center">
+                  <a class="btn btn-primary btn-lg js-scroll-trigger" href="#about">DOWIEDZ SIĘ WIĘCEJ!</a>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- About Section -->
+      <section class="page-section about-section" id="about">
+         <div class="container">
+            <div class="row justify-content-center">
+               <div class="col-lg-8 text-center">
+                  <h2 class="text-dark mt-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. </h2>
+                  <hr class="divider "/>
+                  <p class="text-dark mb-4">Nulla et urna arcu. Nam non ante nulla. Aenean nulla lacus, varius a vestibulum quis, cursus at ante. Duis vel finibus ipsum.</p>
+               </div>
+            </div>
+            <div class="row justify-content-around">
+               <div class="col-lg-6 text-center">
+                  <img src="#{resource['images/cards/fraction-1-main.png']}"/>
+                  <p class="text-dark">Lorem</p>
+               </div>
+               <div class="col-lg-6 text-center">
+                  <img src="#{resource['images/cards/fraction-2-main.png']}"/>
+                  <p class="text-dark">Lorem</p>
+               </div>
+            </div>
+            <div class="row justify-content-center mt-5">
+               <div class="col-lg-6 text-center">
+                  <img src="#{resource['images/cards/fraction-3-main.png']}"/>
+                  <p class="text-dark">Lorem</p>
+               </div>
+            </div>
+            <div class="row justify-content-center mt-5">
+               <div class="col-lg-8 text-center">
+                  <hr class="divider mb-5"/>
+                  <h3 class="text-dark">Sed rutrum erat leo, eget consectetur libero egestas vel.</h3>
+                  <h4 class="text-dark">Proin eget lobortis ante.</h4>
+               </div>
+            </div>
+         </div>
+      </section>
+
+      <!-- Cards Section -->
+      <section class="page-section cards-section" id="services">
+         <div class="container-fluid">
+            <div class="row justify-content-around">
+               <div class="col-lg-3 flex-center ">
+                  <p class="text-light">Curabitur efficitur dapibus metus eu pulvinar. Etiam a porta lorem. Integer et consectetur neque.</p>
+               </div>
+               <div class="col-lg-7 flex-center row">
+                  <b:carousel class="carousel slide align-middle" showControls="false" showIndicators="false">
+                     <b:carouselItem class="carousel-item active" data-interval="10000">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[0]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[1]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[2]}"/>
+                           </div>
+                        </div>
+                     </b:carouselItem>
+                     <b:carouselItem class="carousel-item" data-interval="10000">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[3]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[4]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[5]}"/>
+                           </div>
+                        </div>
+                     </b:carouselItem>
+                     <b:carouselItem data-interval="10000">
+                        <div class="row">
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[6]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[7]}"/>
+                           </div>
+                           <div class="col-md-4">
+                              <h:graphicImage styleClass="home-card" library="images"
+                                              name="cards/#{frontBB.cardNameList[8]}"/>
+                           </div>
+                        </div>
+                     </b:carouselItem>
+                  </b:carousel>
+               </div>
+            </div>
+            <div class="row text-center">
+               <div class="col-xs-12">
+                  <h2 class="text-light mt-5">Praesent dictum et massa maximus dapibus.</h2>
+               </div>
+            </div>
+         </div>
+      </section>
+   </ui:define>
+</ui:composition>
