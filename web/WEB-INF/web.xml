@@ -19,4 +19,23 @@
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    <filter>
+        <filter-name>SecurityFilter</filter-name>
+        <filter-class>sec.SecurityFilter</filter-class>
+        <init-param>
+            <param-name>loginPage</param-name>
+            <param-value>/login.xhtml</param-value>
+        </init-param>
+        <init-param>
+            <param-name>accessConfig</param-name>
+            <param-value>
+                /app/smth : ;
+                /app : user, administrator, admin
+            </param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>SecurityFilter</filter-name>
+        <url-pattern>/app/*</url-pattern>
+    </filter-mapping>
 </web-app>

@@ -130,7 +130,7 @@ public class User {
         this.cards = cards;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", catalog = "", schema = "cardcollection", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false))
     public Collection<Role> getRoles() {
         return roles;
