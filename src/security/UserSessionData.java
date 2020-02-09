@@ -1,15 +1,10 @@
-package sec;
+package security;
 
 import entities.Role;
 import entities.User;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-
-import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 public class UserSessionData {
 

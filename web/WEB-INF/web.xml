@@ -21,7 +21,7 @@
     </context-param>
     <filter>
         <filter-name>SecurityFilter</filter-name>
-        <filter-class>sec.SecurityFilter</filter-class>
+        <filter-class>security.SecurityFilter</filter-class>
         <init-param>
             <param-name>loginPage</param-name>
             <param-value>/login.xhtml</param-value>

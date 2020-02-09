@@ -1,4 +1,4 @@
-package sec;
+package security;
 
 import javax.servlet.*;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package sec;
+package security;
 
 import entities.User;
 import dao.UserDao;
@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 
 @Named
 @RequestScoped
-public class LoginBB {
+public class RegisterBB {
     private String email;
+    private String username;
     private String password;
 
     public String getEmail() {
@@ -24,6 +25,14 @@ public class LoginBB {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -35,22 +44,24 @@ public class LoginBB {
     }
 
     @EJB
-    UserDao userDAO;
+    UserDao userDao;
 
     @Inject
     FacesContext facesContext;
 
-    public String login() {
-        User user = userDAO.findUserByLoginCredentials(email, password);
-        if (user == null) {
+    public String register() {
+        User user = userDao.findByNameOrEmail(username, email);
+        if (user != null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "Niepoprawny adres e-mail lub hasło", null));
             return null;
+        } else {
+            user = userDao.registerUser(username, email, password);
+            HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
+            UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
+            HttpSession session = request.getSession();
+            session.setAttribute("userData", userSessionData);
+            return "/app/main";
         }
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
-        HttpSession session = request.getSession();
-        session.setAttribute("userData", userSessionData);
-        return "/app/main";
     }
 }

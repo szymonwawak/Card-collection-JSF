@@ -20,8 +20,23 @@ public class User {
     private Collection<CardProposition> cardPropositions;
     private Collection<Stats> stats;
 
+    public User() {
+
+    }
+
+    public User(String name, String email, String password, Collection<Role> roles, Collection<Card> cards) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.cardscraps = 5000;
+        this.roles = roles;
+        this.cards = cards;
+    }
+
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
