@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="form">
+        <p:growl id="msgs" showDetail="true"/>
+        <p:dataTable var="card" value="#{cardPropositionListBB.cardPropositions}" widgetVar="cardsTable" id="cardsList"
+                     editable="true"
+                     emptyMessage="No cards found with given criteria"
+                     filteredValue="#{cardPropositionListBB.filteredCards}" paginator="true" paginatorPosition="bottom"
+                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+            <f:facet name="header">
+                <p:outputPanel>
+                    <h:outputText value="Search all fields:"/>
+                    <p:inputText id="globalFilter" onkeyup="PF('cardsTable').filter()" style="width:150px"
+                                 placeholder="Enter keyword"/>
+                </p:outputPanel>
+            </f:facet>
+
+            <p:ajax event="rowEdit" listener="#{cardPropositionListBB.onRowEdit(card)}" update=":form:msgs"/>
+            <p:ajax event="rowEditCancel" listener="#{cardPropositionListBB.onRowCancelEdit}" update=":form:msgs"/>
+
+            <p:column filterBy="#{card.name}" headerText="Nazwa" filterMatchMode="contains">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{card.name}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{card.name}" style="width:100%" label="Nazwa"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column filterBy="#{card.description}" headerText="Opis" filterMatchMode="contains">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{card.description}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{card.description}" style="width:100%"
+                                                       label="Opis"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column filterBy="#{card.cost}" headerText="Mana" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{card.cost}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{card.cost}" style="width:100%" label="Koszt"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column filterBy="#{card.attack}" headerText="Atak" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{card.attack}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{card.attack}" style="width:100%"
+                                                       label="Atak"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column filterBy="#{card.health}" headerText="HP" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{card.health}"/></f:facet>
+                    <f:facet name="input"><p:inputText value="#{card.health}" style="width:100%" label="HP"/></f:facet>
+                </p:cellEditor>
+            </p:column>
+
+            <p:column filterBy="#{card.scrapsCost}" headerText="Koszt (skrawki)" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"> <h:outputText value="#{card.scrapsCost}"/></f:facet>
+                    <f:facet name="input">
+                        <h:selectOneMenu value="#{card.scrapsCost}" style="width:100%">
+                            <f:selectItems value="#{cardPropositionListBB.scrapsCost}" var="scraps"
+                                           itemLabel="#{scraps}"
+                                           itemValue="#{scraps}"/>
+                        </h:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                        <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{cardPropositionListBB.scrapsCost}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+            </p:column>
+
+            <p:column filterBy="#{card.scrapsEarned}" headerText="Zysk (skrawki)" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"> <h:outputText value="#{card.scrapsEarned}"/></f:facet>
+                    <f:facet name="input">
+                        <h:selectOneMenu value="#{card.scrapsEarned}" style="width:100%">
+                            <f:selectItems value="#{cardPropositionListBB.scrapsEarned}" var="scraps"
+                                           itemLabel="#{scraps}"
+                                           itemValue="#{scraps}"/>
+                        </h:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                        <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{cardPropositionListBB.scrapsEarned}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+            </p:column>
+
+            <p:column filterBy="#{card.fraction}" headerText="Frakcja" filterMatchMode="exact">
+                <p:cellEditor>
+                    <f:facet name="output"> <h:outputText value="#{card.fraction}"/></f:facet>
+                    <f:facet name="input">
+                        <h:selectOneMenu value="#{card.fraction}" style="width:100%">
+                            <f:selectItems value="#{cardPropositionListBB.fractions}" var="fraction"
+                                           itemLabel="#{fraction}"
+                                           itemValue="#{fraction}"/>
+                        </h:selectOneMenu>
+                    </f:facet>
+                </p:cellEditor>
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                        <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
+                        <f:selectItems value="#{cardPropositionListBB.fractions}"/>
+                    </p:selectOneMenu>
+                </f:facet>
+            </p:column>
+            <p:column style="width:35px" rendered="#{userData.hasRole('admin')}">
+                <p:commandButton action="#{cardPropositionListBB.deleteProposition(card.id)}" value="USUŃ"
+                                 immediate="true" update="mainPanel"/>
+            </p:column>
+            <p:column style="width:35px" rendered="#{userData.hasRole('admin')}">
+                <p:rowEditor/>
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</ui:composition>

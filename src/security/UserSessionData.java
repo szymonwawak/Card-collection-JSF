@@ -13,6 +13,10 @@ public class UserSessionData {
     private String remoteHost;
     private HashSet<String> roles = new HashSet<String>();
 
+    public String getName() {
+        return name;
+    }
+
     public UserSessionData(User user, String remoteHost) {
         this.email = user.getEmail();
         this.name = user.getName();

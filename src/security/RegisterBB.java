@@ -1,7 +1,7 @@
 package security;
 
-import entities.User;
 import dao.UserDao;
+import entities.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -53,7 +53,7 @@ public class RegisterBB {
         User user = userDao.findByNameOrEmail(username, email);
         if (user != null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Niepoprawny adres e-mail lub hasło", null));
+                    "Taki użytkownik już istnieje!", null));
             return null;
         } else {
             user = userDao.registerUser(username, email, password);
@@ -61,7 +61,7 @@ public class RegisterBB {
             UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
             HttpSession session = request.getSession();
             session.setAttribute("userData", userSessionData);
-            return "/app/main";
+            return "/app/main.xhtml";
         }
     }
 }

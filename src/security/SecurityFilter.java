@@ -1,12 +1,12 @@
 package security;
 
 import javax.servlet.*;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.HashSet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class SecurityFilter implements Filter {
     private String loginPage;
@@ -25,7 +25,7 @@ public class SecurityFilter implements Filter {
         if (loginPage != null)
             this.loginPage = loginPage;
         else
-            this.loginPage = "/login.xhtml";
+            this.loginPage = "/index.xhtml";
         this.loginPage = this.loginPage + "?faces-redirect=true";
     }
 
@@ -42,12 +42,16 @@ public class SecurityFilter implements Filter {
     private void setUrlRoles(String urlConfig) {
         String[] config = urlConfig.split(":");
         String url = config[0];
-        if (!url.isEmpty() && config.length > 1) {
-            HashSet<String> roles = extractRoles(config[1]);
-            if (roles.size() > 0)
-                accessRules.put(url, roles);
-            else
+        if (!url.isEmpty()) {
+            if (config.length == 1) {
                 publicResources.add(url);
+            } else {
+                HashSet<String> roles = extractRoles(config[1]);
+                if (roles.size() > 0)
+                    accessRules.put(url, roles);
+                else
+                    publicResources.add(url);
+            }
         }
     }
 
@@ -62,7 +66,8 @@ public class SecurityFilter implements Filter {
     }
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {
+    public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws
+            ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) res;
         HttpSession session = request.getSession();

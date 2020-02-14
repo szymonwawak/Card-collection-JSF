@@ -2,7 +2,6 @@ package entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -20,10 +19,27 @@ public class Card {
     private String filename;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Collection<User> users;
+
+    public Card() {
+    }
+
+    public Card(String name, String description, Integer cost, Integer attack, Integer health, String fraction, String rarity, Integer scrapsCost, Integer scrapsEarned, String filename) {
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.attack = attack;
+        this.health = health;
+        this.fraction = fraction;
+        this.rarity = rarity;
+        this.scrapsCost = scrapsCost;
+        this.scrapsEarned = scrapsEarned;
+        this.filename = filename;
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -175,14 +191,5 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, cost, attack, health, rarity, fraction, scrapsCost, scrapsEarned, filename, createdAt, updatedAt);
-    }
-
-    @ManyToMany(mappedBy = "cards")
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
     }
 }

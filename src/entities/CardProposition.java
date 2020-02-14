@@ -14,14 +14,32 @@ public class CardProposition {
     private Integer attack;
     private Integer health;
     private String rarity;
+    private String userName;
     private String fraction;
     private Integer scrapsCost;
     private Integer scrapsEarned;
     private Timestamp createdAt;
     private Timestamp updatedAt;
 
+    public CardProposition() {
+    }
+
+    public CardProposition(String name, String userName, String description, Integer cost, Integer attack, Integer health, String fraction, String rarity, Integer scrapsCost, Integer scrapsEarned, String filename) {
+        this.name = name;
+        this.description = description;
+        this.cost = cost;
+        this.attack = attack;
+        this.health = health;
+        this.fraction = fraction;
+        this.rarity = rarity;
+        this.scrapsCost = scrapsCost;
+        this.scrapsEarned = scrapsEarned;
+        this.createdAt = new Timestamp(System.currentTimeMillis());
+    }
+
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }
@@ -99,6 +117,17 @@ public class CardProposition {
     public void setFraction(String fraction) {
         this.fraction = fraction;
     }
+
+    @Basic
+    @Column(name = "user_name", nullable = false, length = 191)
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
 
     @Basic
     @Column(name = "scraps_cost", nullable = false)

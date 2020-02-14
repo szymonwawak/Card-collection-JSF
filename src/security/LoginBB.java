@@ -1,7 +1,7 @@
 package security;
 
-import entities.User;
 import dao.UserDao;
+import entities.User;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -51,6 +51,6 @@ public class LoginBB {
         UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
         HttpSession session = request.getSession();
         session.setAttribute("userData", userSessionData);
-        return "/app/main";
+        return "/app/main.xhtml";
     }
 }

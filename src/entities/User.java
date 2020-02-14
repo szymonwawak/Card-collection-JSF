@@ -3,6 +3,7 @@ package entities;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -15,16 +16,14 @@ public class User {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Integer cardscraps;
-    private Collection<Card> cards;
+    private List<Card> cards;
     private Collection<Role> roles;
-    private Collection<CardProposition> cardPropositions;
-    private Collection<Stats> stats;
 
     public User() {
 
     }
 
-    public User(String name, String email, String password, Collection<Role> roles, Collection<Card> cards) {
+    public User(String name, String email, String password, Collection<Role> roles, List<Card> cards) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -135,13 +134,14 @@ public class User {
         return Objects.hash(id, name, email, password, rememberToken, createdAt, updatedAt, cardscraps);
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
+    @OrderColumn(name = "id")
     @JoinTable(name = "user_card", catalog = "", schema = "cardcollection", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false))
-    public Collection<Card> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
-    public void setCards(Collection<Card> cards) {
+    public void setCards(List<Card> cards) {
         this.cards = cards;
     }
 
@@ -153,23 +153,5 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
-    }
-
-    @OneToMany
-    public Collection<CardProposition> getCardPropositions() {
-        return cardPropositions;
-    }
-
-    public void setCardPropositions(Collection<CardProposition> cardPropositions) {
-        this.cardPropositions = cardPropositions;
-    }
-
-    @OneToMany
-    public Collection<Stats> getStats() {
-        return stats;
-    }
-
-    public void setStats(Collection<Stats> stats) {
-        this.stats = stats;
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:b="http://bootsfaces.net/ui"
+                xmlns:p="http://primefaces.org/ui">
+    <p:panel id="registerPanel" widgetVar="registerPanel" visible="false" styleClass="justify-content-center">
+        <f:facet name="header">
+            <h2>Zarejestruj się!</h2>
+        </f:facet>
+        <h:form>
+            <h:panelGrid layout="flex" columns="2" cellspacing="10" styleClass="margin-auto">
+                <h:outputLabel for="email" value="Adres e-mail:"/>
+                <p:inputText id="email" type="email" value="#{registerBB.email}" required="true"/>
+                <h:outputLabel for="name" value="Nazwa użytkownika:"/>
+                <p:inputText id="name" value="#{registerBB.username}" required="true"/>
+                <h:outputLabel for="password" value="Hasło:"/>
+                <p:password id="password" value="#{registerBB.password}" required="true"/>
+            </h:panelGrid>
+            <b:commandButton action="#{registerBB.register}" class="btn btn-primary tm-10"
+                             value="Zarejestruj"/>
+        </h:form>
+    </p:panel>
+</ui:composition>

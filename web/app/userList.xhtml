@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="form">
+        <p:inputText id="name" value="#{userListBB.name}" label="Nazwa"/>
+        <p:ajax event="keyup" update="userList"/>
+        <p:commandButton action="#{userListBB.list}" style="font-size:20px" update="userList" value="Wyszukaj"
+                         styleClass="font-bangers"/>
+        <p:dataView id="userList" var="user" value="#{userListBB.users}" rows="10" paginator="true"
+                    paginatorPosition="bottom"
+                    paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+            <f:facet name="header">
+                <span class="font-bangers" style="font-size:20px">Lista użytkowników</span>
+            </f:facet>
+            <p:dataViewListItem>
+                <h:panelGrid columns="3" cellpadding="20 " cellspacing="10" styleClass="font-bangers"
+                             style="font-size:20px;">
+                    <h:column>
+                        <h:outputText value="Nazwa: "/>
+                        <h:outputText value="#{user.name}  " style="font-weight: bold"/>
+                    </h:column>
+                    <h:column>
+                        <p:commandButton value="Zobacz kolekcję!" styleClass="font-bangers" style="font-size:20px;"
+                                         immediate="true" action="#{panelBB.showUserCollection(user)}"
+                                         update="mainPanel"/>
+                    </h:column>
+                    <h:column rendered="#{userData.hasRole('admin')}">
+                        <p:commandButton value="Usuń użytkownika" styleClass="font-bangers" style="font-size:20px;"
+                                         immediate="true" action="#{userListBB.deleteUser(user)}" update="mainPanel"/>
+                    </h:column>
+                </h:panelGrid>
+            </p:dataViewListItem>
+        </p:dataView>
+    </h:form>
+</ui:composition>

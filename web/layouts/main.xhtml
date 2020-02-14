@@ -5,22 +5,19 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:b="http://bootsfaces.net/ui">
-<h:head>
-    <h:outputStylesheet library="css" name="main.css" position="first"/>
-    <link href="https://fonts.googleapis.com/css?family=Bangers|Luckiest+Guy" rel="stylesheet"/>
-</h:head>
+<ui:include src="../includes/head.xhtml"/>
 <h:body>
     <b:navBar position="top" sticky="true" id="mainNav">
         <div class="container">
             <b:navbarLinks pull="right" class="main-navbar">
-                <b:navLink class="nav-item nav-login">Zaloguj się</b:navLink>
-                <b:navLink class="nav-item nav-register">Zarejestruj</b:navLink>
+                <b:navLink class="nav-item nav-login"
+                           onclick="PF('registerPanel').close();setTimeout(PF('loginPanel').show(), 2000); ">Zaloguj się</b:navLink>
+                <b:navLink class="nav-item nav-register"
+                           onclick="PF('loginPanel').close();setTimeout(PF('registerPanel').show(), 2000);">Zarejestruj</b:navLink>
             </b:navbarLinks>
         </div>
     </b:navBar>
-    <ui:insert name="content">
-
-    </ui:insert>
+    <ui:insert name="content"/>
+    <ui:include src="../includes/footer.xhtml"/>
 </h:body>
-
 </html>

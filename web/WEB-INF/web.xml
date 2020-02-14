@@ -24,13 +24,12 @@
         <filter-class>security.SecurityFilter</filter-class>
         <init-param>
             <param-name>loginPage</param-name>
-            <param-value>/login.xhtml</param-value>
+            <param-value>/index.xhtml</param-value>
         </init-param>
         <init-param>
             <param-name>accessConfig</param-name>
             <param-value>
-                /app/smth : ;
-                /app : user, administrator, admin
+                /app :
             </param-value>
         </init-param>
     </filter>
@@ -38,4 +37,8 @@
         <filter-name>SecurityFilter</filter-name>
         <url-pattern>/app/*</url-pattern>
     </filter-mapping>
+    <context-param>
+        <param-name>primefaces.THEME</param-name>
+        <param-value>nova-colored</param-value>
+    </context-param>
 </web-app>

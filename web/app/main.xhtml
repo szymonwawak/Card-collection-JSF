@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
+<ui:include src="../includes/head.xhtml"/>
+<h:body>
+    <b:navBar position="top" sticky="true" id="mainNav">
+        <div class="container">
+            <b:navbarLinks pull="right" class="main-navbar">
+                <b:navLink class="nav-item nav-register" action="#{loginBB.logout}">Wyloguj</b:navLink>
+            </b:navbarLinks>
+        </div>
+    </b:navBar>
+    <div class="menu-header"/>
+    <h:form>
+        <p:tabMenu activeIndex="#{param.i}" id="mainMenu" styleClass="mainMenu">
+            <p:menuitem value="Moja kolekcja" icon="pi pi-star" action="#{panelBB.setPage('collection')}"
+                        update="mainPanel, mainMenu">
+                <f:param name="i" value="0"/>
+            </p:menuitem>
+            <p:menuitem value="Znajdź użytkownika" icon="pi pi-file" action="#{panelBB.setPage('userList')}"
+                        update="mainPanel, mainMenu">
+                <f:param name="i" value="1"/>
+            </p:menuitem>
+            <p:menuitem value="Wszytkie karty" icon="pi pi-user" action="#{panelBB.setPage('cardList')}"
+                        update="mainPanel, mainMenu">
+                <f:param name="i" value="2"/>
+            </p:menuitem>
+            <p:menuitem value="Propozycje kart" rendered="#{userData.hasRole('admin')}" icon="pi pi-user"
+                        action="#{panelBB.setPage('cardPropositionList')}"
+                        update="mainPanel, mainMenu">
+                <f:param name="i" value="3"/>
+            </p:menuitem>
+            <p:menuitem value="Zaproponuj kartę" icon="pi pi-search" onclick="PF('proposeCard').show();">
+                <f:param name="i" value="4"/>
+            </p:menuitem>
+            <p:menuitem value="Dodaj kartę" icon="pi pi-search" rendered="#{userData.hasRole('admin')}"
+                        onclick="PF('addCard').show();">
+                <f:param name="i" value="5"/>
+            </p:menuitem>
+
+
+        </p:tabMenu>
+    </h:form>
+    <ui:include src="createCard.xhtml"/>
+    <ui:include src="createProposition.xhtml"/>
+    <div class="content">
+        <p:panel id="mainPanel" header="">
+            <ui:include src="#{panelBB.page}.xhtml"/>
+        </p:panel>
+    </div>
+</h:body>
+<ui:include src="../includes/footer.xhtml"/>
+</html>

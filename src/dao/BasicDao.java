@@ -7,12 +7,12 @@ import java.util.List;
 
 public abstract class BasicDao<R> {
 
-    protected String selectAll = "SELECT r FROM Card R";
-
     @PersistenceContext
     protected EntityManager entityManager;
 
     protected abstract Class<R> getRecordClass();
+
+    protected abstract String getClassName();
 
     public void create(R record) {
         entityManager.persist(record);
@@ -26,12 +26,12 @@ public abstract class BasicDao<R> {
         entityManager.merge(record);
     }
 
-    public void delete(R record) {
-        entityManager.remove(record);
+    public void delete(Long id) {
+        entityManager.remove(entityManager.find(getRecordClass(), id));
     }
 
     public List<R> getAll() {
-        TypedQuery<R> query = entityManager.createQuery(selectAll, getRecordClass());
+        TypedQuery<R> query = entityManager.createQuery("SELECT r FROM " + getClassName() + " R", getRecordClass());
         return query.getResultList();
     }
 }

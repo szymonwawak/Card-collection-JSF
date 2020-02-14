@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <h:form id="form">
+        <p:dataGrid var="card" value="#{userCollectionBB.collection}" columns="3"
+                    rows="2" paginator="true" id="cards"
+                    paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+            <f:facet name="header">
+                Cars for Sale
+            </f:facet>
+            <p:panel header="#{card.id}" style="text-align:center">
+                <h:panelGrid columns="1" style="width:100%">
+                    <p:graphicImage library="images" name="cards/#{card.filename}"/>
+                    <h:outputText value="#{card.name}"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:dataGrid>
+    </h:form>
+</ui:composition>

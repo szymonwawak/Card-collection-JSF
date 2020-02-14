@@ -16,6 +16,11 @@ public class RoleDao extends BasicDao<Role> {
         return Role.class;
     }
 
+    @Override
+    protected String getClassName() {
+        return "Role";
+    }
+
     public Collection<Role> prepareBasicRole() {
         List<Role> roles = new ArrayList<>();
         TypedQuery<Role> query = entityManager.createQuery("select r FROM Role R WHERE r.name LIKE 'user'", Role.class);
