@@ -12,7 +12,7 @@
       <configuration>
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
-          <factory-entry name="Card collection" />
+          <factory-entry name="Card collection" value="9812fbbf-5290-4be0-9013-a76b97014c4c" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/META-INF/persistence.xml" />
@@ -52,5 +52,7 @@
     <orderEntry type="library" name="jakarta.inject-api-1.0" level="project" />
     <orderEntry type="library" name="jakarta.enterprise.cdi-api-2.0.2" level="project" />
     <orderEntry type="library" name="commons-codec-1.14" level="project" />
+    <orderEntry type="library" name="Primefaces" level="project" />
+    <orderEntry type="library" name="primefaces-7.0" level="project" />
   </component>
 </module>

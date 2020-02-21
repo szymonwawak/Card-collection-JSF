@@ -6,10 +6,12 @@
         <class>entities.Card</class>
         <class>entities.CardProposition</class>
         <class>entities.Role</class>
-        <class>entities.Stats</class>
         <class>entities.User</class>
         <class>entities.UserCard</class>
         <class>entities.UserRole</class>
+        <class>entities.Deck</class>
+        <class>entities.DeckCard</class>
+        <class>entities.Statistics</class>
         <properties>
             <property name="toplink.jdbc.url" value="jdbc:mysql://localhost:3306/cardcollection"/>
             <property name="toplink.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>

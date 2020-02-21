@@ -18,6 +18,10 @@ public class User {
     private Integer cardscraps;
     private List<Card> cards;
     private Collection<Role> roles;
+    private String avatar;
+    private Collection<CardProposition> cardPropositionsById;
+    private Collection<Deck> decksById;
+    private Statistics statisticsByStatisticsId;
 
     public User() {
 
@@ -153,5 +157,43 @@ public class User {
 
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
+    }
+    
+    @Basic
+    @Column(name = "avatar", nullable = false, length = 40)
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<CardProposition> getCardPropositionsById() {
+        return cardPropositionsById;
+    }
+
+    public void setCardPropositionsById(Collection<CardProposition> cardPropositionsById) {
+        this.cardPropositionsById = cardPropositionsById;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Deck> getDecksById() {
+        return decksById;
+    }
+
+    public void setDecksById(Collection<Deck> decksById) {
+        this.decksById = decksById;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "statistics_id", referencedColumnName = "id", nullable = false)
+    public Statistics getStatisticsByStatisticsId() {
+        return statisticsByStatisticsId;
+    }
+
+    public void setStatisticsByStatisticsId(Statistics statisticsByStatisticsId) {
+        this.statisticsByStatisticsId = statisticsByStatisticsId;
     }
 }

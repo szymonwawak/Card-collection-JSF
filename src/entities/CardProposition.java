@@ -20,6 +20,7 @@ public class CardProposition {
     private Integer scrapsEarned;
     private Timestamp createdAt;
     private Timestamp updatedAt;
+    private User userByUserId;
 
     public CardProposition() {
     }
@@ -99,7 +100,7 @@ public class CardProposition {
     }
 
     @Basic
-    @Column(name = "rarity", nullable = false, length = 191)
+    @Column(name = "rarity", nullable = true, length = 191)
     public String getRarity() {
         return rarity;
     }
@@ -127,7 +128,6 @@ public class CardProposition {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     @Basic
     @Column(name = "scraps_cost", nullable = false)
@@ -191,5 +191,15 @@ public class CardProposition {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, cost, attack, health, rarity, fraction, scrapsCost, scrapsEarned, createdAt, updatedAt);
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    public User getUserByUserId() {
+        return userByUserId;
+    }
+
+    public void setUserByUserId(User userByUserId) {
+        this.userByUserId = userByUserId;
     }
 }
