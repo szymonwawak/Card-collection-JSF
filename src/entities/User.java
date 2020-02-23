@@ -27,7 +27,7 @@ public class User {
 
     }
 
-    public User(String name, String email, String password, Collection<Role> roles, List<Card> cards) {
+    public User(String name, String email, String password, Collection<Role> roles, List<Card> cards, Statistics statistics) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -35,6 +35,8 @@ public class User {
         this.cardscraps = 5000;
         this.roles = roles;
         this.cards = cards;
+        this.avatar = "default-avatar.jpg";
+        this.statisticsByStatisticsId = statistics;
     }
 
     @Id
@@ -138,8 +140,7 @@ public class User {
         return Objects.hash(id, name, email, password, rememberToken, createdAt, updatedAt, cardscraps);
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @OrderColumn(name = "id")
+    @ManyToMany
     @JoinTable(name = "user_card", catalog = "", schema = "cardcollection", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false))
     public List<Card> getCards() {
         return cards;

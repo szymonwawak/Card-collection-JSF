@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
+    <h:form enctype="multipart/form-data">
+        <p:growl id="cardGrowl" sticky="true" showDetail="true" life="3000"/>
+        <p:dialog header="Edycja profilu" widgetVar="editProfile" resizable="false">
+            <h:panelGrid columns="2" cellpadding="5">
+                <h:outputLabel for="name" value="Nazwa:"/>
+                <p:inputText id="name" value="#{editProfileBB.name}" required="true" label="name"/>
+
+                <h:outputLabel for="eMail" value="E-mail:"/>
+                <p:inputText id="eMail" value="#{editProfileBB.email}" required="true" label="eMail"/>
+
+                <h:outputLabel for="newPassword" value="Nowe hasło:"/>
+                <p:inputText id="newPassword" value="#{editProfileBB.newPassword}" required="true" label="newPassword"/>
+
+                <h:outputLabel for="oldPassword" value="Stare hasło:"/>
+                <p:inputText id="oldPassword" value="#{editProfileBB.oldPassword}" required="true" label="oldPassword"/>
+
+                <p:fileUpload fileUploadListener="#{editProfileBB.fileListener}"
+                              mode="advanced"
+                              sizeLimit="100000"
+                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> </h:panelGrid>
+        </p:dialog>
+    </h:form>
+</ui:composition>

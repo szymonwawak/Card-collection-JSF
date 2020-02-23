@@ -14,7 +14,6 @@ public class CardProposition {
     private Integer attack;
     private Integer health;
     private String rarity;
-    private String userName;
     private String fraction;
     private Integer scrapsCost;
     private Integer scrapsEarned;
@@ -117,16 +116,6 @@ public class CardProposition {
 
     public void setFraction(String fraction) {
         this.fraction = fraction;
-    }
-
-    @Basic
-    @Column(name = "user_name", nullable = false, length = 191)
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     @Basic

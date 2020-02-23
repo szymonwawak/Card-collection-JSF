@@ -11,7 +11,9 @@ public class UserSessionData {
     private String email;
     private String name;
     private String remoteHost;
-    private HashSet<String> roles = new HashSet<String>();
+    private String avatar;
+
+    private HashSet<String> roles = new HashSet();
 
     public String getName() {
         return name;
@@ -20,6 +22,7 @@ public class UserSessionData {
     public UserSessionData(User user, String remoteHost) {
         this.email = user.getEmail();
         this.name = user.getName();
+        this.avatar = user.getAvatar();
         this.remoteHost = remoteHost;
         setRoles(user.getRoles());
     }
@@ -28,6 +31,14 @@ public class UserSessionData {
         for (Role role : roles) {
             this.roles.add(role.getName());
         }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 
     public boolean hasRole(String role) {
@@ -41,5 +52,4 @@ public class UserSessionData {
         }
         return false;
     }
-
 }

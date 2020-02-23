@@ -1,5 +1,6 @@
 package dao;
 
+import entities.Statistics;
 import entities.User;
 import org.apache.commons.codec.digest.DigestUtils;
 
@@ -16,6 +17,9 @@ public class UserDao extends BasicDao<User> {
     CardDao cardDao;
 
     @EJB
+    StatisticsDao statisticsDao;
+
+    @EJB
     RoleDao roleDao;
 
     @Override
@@ -29,7 +33,7 @@ public class UserDao extends BasicDao<User> {
     }
 
     public User getUserByName(String name) {
-        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User U WHERE u.name LIKE :name", User.class);
+        TypedQuery<User> query = entityManager.createQuery("SELECT u FROM User U JOIN FETCH u.cards WHERE u.name LIKE :name", User.class);
         query.setParameter("name", name);
         return query.getSingleResult();
     }
@@ -59,9 +63,18 @@ public class UserDao extends BasicDao<User> {
     }
 
     public User registerUser(String name, String email, String password) {
-        User user = new User(name, email, hashPassword(password), roleDao.prepareBasicRole(), cardDao.getRandomCards(6));
+        Statistics statistics = new Statistics();
+        statisticsDao.create(statistics);
+        User user = new User(name, email, hashPassword(password), roleDao.prepareBasicRole(), cardDao.getRandomCards(6), statistics);
         create(user);
         return user;
+    }
+
+    public void updateProfile(User user, String name, String email, String newPassword) {
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(hashPassword(newPassword));
+        update(user);
     }
 
     private String hashPassword(String password) {

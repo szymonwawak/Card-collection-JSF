@@ -1,9 +1,6 @@
 package entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
@@ -16,8 +13,18 @@ public class Statistics {
     private Integer collectionValue;
     private Integer cardscraps;
 
+    public Statistics() {
+        this.cardsCreated = 0;
+        this.cardsDestroyed = 0;
+        this.scrapsUsed = 0;
+        this.scrapsEarned = 0;
+        this.collectionValue = 0;
+        this.cardscraps = 5000;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
         return id;
     }

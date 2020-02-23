@@ -288,3 +288,8 @@ footer {
     width: 260px !important;
     height: 400px !important;
 }
+
+.avatar-image {
+    width: 60px;
+    height: 60px;
+}

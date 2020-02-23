@@ -14,6 +14,8 @@
             <b:navbarLinks pull="right" class="main-navbar">
                 <b:navLink class="nav-item nav-register" action="#{loginBB.logout}">Wyloguj</b:navLink>
             </b:navbarLinks>
+            <h:graphicImage library="images" name="avatars/default-avatar.png" styleClass="avatar-image"
+                            onclick="PF('editProfile').show();"/>
         </div>
     </b:navBar>
     <div class="menu-header"/>
@@ -49,6 +51,7 @@
     </h:form>
     <ui:include src="createCard.xhtml"/>
     <ui:include src="createProposition.xhtml"/>
+    <ui:include src="editProfile.xhtml"/>
     <div class="content">
         <p:panel id="mainPanel" header="">
             <ui:include src="#{panelBB.page}.xhtml"/>
