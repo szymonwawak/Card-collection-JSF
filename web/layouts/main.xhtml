@@ -4,11 +4,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:b="http://bootsfaces.net/ui">
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:p="http://primefaces.org/ui">
 <ui:include src="../includes/head.xhtml"/>
 <h:body>
     <b:navBar position="top" sticky="true" id="mainNav">
         <div class="container">
+            <p:growl id="growl" showDetail="true" sticky="true"/>
             <b:navbarLinks pull="right" class="main-navbar">
                 <b:navLink class="nav-item nav-login"
                            onclick="PF('registerPanel').close();setTimeout(PF('loginPanel').show(), 2000); ">Zaloguj się</b:navLink>

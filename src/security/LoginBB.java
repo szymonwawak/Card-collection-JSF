@@ -15,8 +15,11 @@ import javax.servlet.http.HttpSession;
 @Named
 @RequestScoped
 public class LoginBB {
+
     private String email;
     private String password;
+    private boolean visible = false;
+    User user;
 
     public String getEmail() {
         return email;
@@ -34,6 +37,14 @@ public class LoginBB {
         this.password = password;
     }
 
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
     @EJB
     UserDao userDAO;
 
@@ -41,10 +52,8 @@ public class LoginBB {
     FacesContext facesContext;
 
     public String login() {
-        User user = userDAO.findUserByLoginCredentials(email, password);
-        if (user == null) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "Niepoprawny adres e-mail lub hasło", null));
+        if (!validate()) {
+            setVisible(true);
             return null;
         }
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
@@ -52,5 +61,22 @@ public class LoginBB {
         HttpSession session = request.getSession();
         session.setAttribute("userData", userSessionData);
         return "/app/main.xhtml";
+    }
+
+    public boolean validate() {
+        if (email.isEmpty())
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano adresu e-mail!"));
+        if (password.isEmpty())
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano hasła!"));
+        if (email.isEmpty() || password.isEmpty())
+            return false;
+
+        user = userDAO.findUserByLoginCredentials(email, password);
+        if (user == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd!",
+                    "Niepoprawny adres e-mail lub hasło"));
+            return false;
+        }
+        return true;
     }
 }

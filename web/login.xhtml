@@ -5,18 +5,18 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui">
-    <p:panel id="loginPanel" widgetVar="loginPanel" visible="false" styleClass="justify-content-center">
+    <p:panel id="loginPanel" widgetVar="loginPanel" visible="#{loginBB.visible}" styleClass="justify-content-center">
         <f:facet name="header">
             <h2>Zaloguj się!</h2>
         </f:facet>
         <h:form>
             <h:panelGrid layout="flex" columns="2" cellspacing="10" styleClass="margin-auto">
                 <h:outputLabel for="email" value="Adres e-mail:"/>
-                <p:inputText id="email" type="email" value="#{loginBB.email}" required="true"/>
+                <p:inputText id="email" type="email" value="#{loginBB.email}"/>
                 <h:outputLabel for="password" value="Hasło:"/>
-                <p:password id="password" value="#{loginBB.password}" required="true"/>
+                <p:password id="password" value="#{loginBB.password}"/>
             </h:panelGrid>
-            <b:commandButton action="#{loginBB.login}" class="btn btn-primary tm-10"
+            <b:commandButton action="#{loginBB.login}" update="growl" class="btn btn-primary tm-10"
                              value="Zaloguj"/>
         </h:form>
     </p:panel>

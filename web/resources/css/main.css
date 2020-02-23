@@ -293,3 +293,15 @@ footer {
     width: 60px;
     height: 60px;
 }
+
+.ui-growl-message {
+    font-family: Bangers;
+}
+
+.ui-growl-message span {
+    font-size: 30px;
+}
+
+.ui-growl-message p {
+    font-size: 25px;
+}
