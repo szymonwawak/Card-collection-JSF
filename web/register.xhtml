@@ -5,7 +5,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:b="http://bootsfaces.net/ui"
                 xmlns:p="http://primefaces.org/ui">
-    <p:panel id="registerPanel" widgetVar="registerPanel" visible="false" styleClass="justify-content-center">
+    <p:panel id="registerPanel" widgetVar="registerPanel" visible="#{registerBB.visible}"
+             styleClass="justify-content-center">
         <f:facet name="header">
             <h2>Zarejestruj się!</h2>
         </f:facet>
@@ -14,12 +15,12 @@
                 <h:outputLabel for="email" value="Adres e-mail:"/>
                 <p:inputText id="email" type="email" value="#{registerBB.email}" required="true"/>
                 <h:outputLabel for="name" value="Nazwa użytkownika:"/>
-                <p:inputText id="name" value="#{registerBB.username}" required="true"/>
+                <p:inputText id="name" value="#{registerBB.username}"/>
                 <h:outputLabel for="password" value="Hasło:"/>
-                <p:password id="password" value="#{registerBB.password}" required="true"/>
+                <p:password id="password" value="#{registerBB.password}"/>
             </h:panelGrid>
             <b:commandButton action="#{registerBB.register}" class="btn btn-primary tm-10"
-                             value="Zarejestruj"/>
+                             update="growl" value="Zarejestruj"/>
         </h:form>
     </p:panel>
 </ui:composition>

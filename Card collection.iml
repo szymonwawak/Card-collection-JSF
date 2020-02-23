@@ -44,15 +44,11 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="JPA 2.0-2.0" level="project" />
     <orderEntry type="library" name="BootsFaces-OSP-1.4.2" level="project" />
-    <orderEntry type="library" name="EJB-3.2.2" level="project" />
-    <orderEntry type="library" name="jboss-jsf-api_2.3_spec-3.0.0.Final" level="project" />
-    <orderEntry type="library" name="Java EE 6-Java EE 6" level="project" />
-    <orderEntry type="library" name="jakarta.inject-api-1.0" level="project" />
-    <orderEntry type="library" name="jakarta.enterprise.cdi-api-2.0.2" level="project" />
-    <orderEntry type="library" name="commons-codec-1.14" level="project" />
-    <orderEntry type="library" name="Primefaces" level="project" />
     <orderEntry type="library" name="primefaces-7.0" level="project" />
+    <orderEntry type="library" name="commons-codec-1.14" level="project" />
+    <orderEntry type="library" name="jboss-jaspi-api_1.1_spec-2.0.1.Final" level="project" />
+    <orderEntry type="library" name="commons-fileupload-1.4" level="project" />
+    <orderEntry type="library" name="javax.faces-api-2.3" level="project" />
   </component>
 </module>
