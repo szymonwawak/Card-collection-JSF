@@ -5,7 +5,9 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
 import java.util.List;
@@ -17,21 +19,26 @@ public class CardListBB implements Serializable {
     @EJB
     CardDao cardDao;
 
+    @Inject
+    Flash flash;
+
     public List<Card> getCards() {
+        if (flash.get("forceRefresh") != null && (Boolean) flash.get("forceRefresh") == true)
+            initList();
         return cards;
     }
 
-    private List<Card> filteredCards;
-
-    public List<Card> getFilteredCards() {
-        return filteredCards;
-    }
-
-    public void setFilteredCards(List<Card> filteredCards) {
-        this.filteredCards = filteredCards;
-    }
-
     List<Card> cards;
+
+    public LazyCardDataModel getLazyCards() {
+        return lazyCards;
+    }
+
+    public void setLazyCards(LazyCardDataModel lazyCards) {
+        this.lazyCards = lazyCards;
+    }
+
+    private LazyCardDataModel lazyCards;
 
     int[] scrapsCost = new int[]{40, 100, 400, 1600};
     int[] scrapsEarned = new int[]{5, 20, 100, 400};
@@ -47,9 +54,8 @@ public class CardListBB implements Serializable {
     String[] fractions = new String[]{"F1", "F2", "F3"};
 
     @PostConstruct
-    private void initList() {
-        List<Card> cards = cardDao.getAll();
-        this.cards = cards;
+    public void initList() {
+        cards = cardDao.getAll();
     }
 
     public int[] getScrapsCost() {
@@ -73,5 +79,6 @@ public class CardListBB implements Serializable {
 
     public void deleteCard(Long id) {
         cardDao.delete(id);
+        initList();
     }
 }

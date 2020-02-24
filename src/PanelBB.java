@@ -1,6 +1,8 @@
+import dao.UserDao;
 import entities.User;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -12,6 +14,9 @@ import java.io.Serializable;
 public class PanelBB implements Serializable {
 
     String page;
+
+    @EJB
+    UserDao userDao;
 
     @Inject
     Flash flash;
@@ -30,7 +35,7 @@ public class PanelBB implements Serializable {
     }
 
     public void showUserCollection(User user) {
-        flash.put("collection", ViewCollectionBB.returnNotNull(user.getCards()));
+        flash.put("username", user.getName());
         setPage("viewCollection");
     }
 }

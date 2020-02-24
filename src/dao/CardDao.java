@@ -49,4 +49,11 @@ public class CardDao extends BasicDao<Card> {
                 .setParameter(8, card.getScrapsEarned())
                 .setParameter(9, card.getFilename()).executeUpdate();
     }
+
+    public List<Card> getResultList(int first, int pageSize) {
+        TypedQuery<Card> query = entityManager.createQuery("SELECT r FROM " + getClassName() + " R", getRecordClass());
+        query.setMaxResults(pageSize);
+        query.setFirstResult(first);
+        return query.getResultList();
+    }
 }

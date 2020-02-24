@@ -5,16 +5,15 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <h:form id="form">
-        <p:dataGrid var="card" value="#{viewCollectionBB.collection}" columns="3"
-                    rows="2" id="cards" paginator="true" paginatorPosition="bottom"
+        <p:dataGrid var="card" value="#{viewCollectionBB.collection}" columns="4"
+                    id="cards" paginator="true" layout="grid" paginatorPosition="bottom"
                     paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
             <f:facet name="header">
-                Kolekcja
+                <h:outputText value="Kolekcja gracza #{viewCollectionBB.username}"/>
             </f:facet>
-            <p:panel header="#{card.id}" style="text-align:center">
+            <p:panel header="#{card.name}" style="text-align:center">
                 <h:panelGrid columns="1" style="width:100%">
-                    <p:graphicImage library="images" name="cards/#{card.filename}"/>
-                    <h:outputText value="#{card.name}"/>
+                    <p:graphicImage library="images" name="cards/#{card.filename}" styleClass="grid-img"/>
                 </h:panelGrid>
             </p:panel>
         </p:dataGrid>

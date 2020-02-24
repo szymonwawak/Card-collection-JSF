@@ -23,6 +23,8 @@ public class CardPropositionListBB implements Serializable {
     CardPropositionDao cardPropositionDao;
 
     public List<CardProposition> getCardPropositions() {
+        if (flash.get("forceRefresh") != null && (Boolean) flash.get("forceRefresh") == true)
+            initList();
         return cardPropositions;
     }
 

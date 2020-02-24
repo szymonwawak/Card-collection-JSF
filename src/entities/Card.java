@@ -21,6 +21,7 @@ public class Card {
     private Timestamp createdAt;
     private Timestamp updatedAt;
     private Collection<Deck> Decks;
+    private Collection<User> Users;
 
     public Card() {
     }
@@ -101,7 +102,7 @@ public class Card {
     }
 
     @Basic
-    @Column(name = "rarity", nullable = false, length = 191)
+    @Column(name = "rarity", nullable = true, length = 191)
     public String getRarity() {
         return rarity;
     }
@@ -202,5 +203,15 @@ public class Card {
 
     public void setDecks(Collection<Deck> decks) {
         Decks = decks;
+    }
+
+    @ManyToMany
+    @JoinTable(name = "user_card", catalog = "", schema = "cardcollection", joinColumns = @JoinColumn(name = "card_id", referencedColumnName = "id", nullable = false), inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false))
+    public Collection<User> getUsers() {
+        return Users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        Users = users;
     }
 }

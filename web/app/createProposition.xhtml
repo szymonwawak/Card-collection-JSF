@@ -50,7 +50,7 @@
                    <f:selectItems value="#{cardBB.scrapsEarnedArray}"/>
                </p:selectOneMenu>
            </h:panelGrid>
-           <p:commandButton value="Zatwierdź" update="cardGrowl" onsuccess="PF('proposeCard').hide();"
+           <p:commandButton value="Zatwierdź" update="cardGrowl, mainPanel" onsuccess="PF('proposeCard').hide();"
                             action="#{cardBB.saveProposition()}"/>
         </p:dialog>
     </h:form>

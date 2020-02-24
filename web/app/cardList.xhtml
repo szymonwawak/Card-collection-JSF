@@ -8,8 +8,8 @@
         <p:growl id="msgs" showDetail="false"/>
         <p:dataTable var="card" tableStyle="width: auto" value="#{cardListBB.cards}" styleClass="font-bangers"
                      widgetVar="cardsTable" id="cardsList" editable="true"
-                     emptyMessage="Nie znaleziono kart!" filteredValue="#{cardListBB.filteredCards}" paginator="true"
-                     paginatorPosition="bottom"
+                     emptyMessage="Nie znaleziono kart!" paginator="true"
+                     rows="5" paginatorPosition="bottom"
                      paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
             <f:facet name="header">
                 <p:outputPanel>

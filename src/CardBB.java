@@ -8,6 +8,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -42,6 +43,9 @@ public class CardBB implements Serializable {
 
     @Inject
     FacesContext facesContext;
+
+    @Inject
+    Flash flash;
 
     public String[] getFractions() {
         return fractions;
@@ -151,13 +155,14 @@ public class CardBB implements Serializable {
         Card card = new Card(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename);
         cardDao.create(card);
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Karta została dodana", null));
-
+        flash.put("forceRefresh", true);
     }
 
     public void saveProposition() {
         CardProposition proposition = new CardProposition(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename, userDao.read(Utils.getCurrentUserId()));
         cardPropositionDao.create(proposition);
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Propozycja została dodana", null));
+        flash.put("forceRefresh", true);
     }
 
     public void scrapsCostChange() {
@@ -167,7 +172,7 @@ public class CardBB implements Serializable {
 
     public void scrapsEarnedChange() {
         index = Arrays.binarySearch(scrapsEarnedArray, scrapsEarned);
-        scrapsEarned = scrapsCostArray[index];
+        scrapsCost = scrapsCostArray[index];
 
     }
 }

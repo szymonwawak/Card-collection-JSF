@@ -1,7 +1,10 @@
+import dao.UserDao;
 import entities.Card;
+import entities.User;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -10,17 +13,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Named
-@RequestScoped
+@SessionScoped
 public class ViewCollectionBB implements Serializable {
 
     @Inject
     Flash flash;
 
+    @EJB
+    UserDao userDao;
+
     List<Card> collection;
+    String username;
+
+    public String getUsername() {
+        return username;
+    }
 
     @PostConstruct
     private void initViewCollection() {
-        this.collection = (List<Card>) flash.get("collection");
+        if (flash.get("username") != null) {
+            username = (String) flash.get("username");
+            User user = userDao.getUserByName(username);
+            collection = user.getCards();
+
+        }
     }
 
     public static List<Card> returnNotNull(List<Card> cards) {
