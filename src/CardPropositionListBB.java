@@ -49,7 +49,7 @@ public class CardPropositionListBB implements Serializable {
         this.fractions = fractions;
     }
 
-    String[] fractions = new String[]{"F1", "F2", "F3"};
+    String[] fractions = new String[]{"Fraction 1", "Fraction 2", "Fraction 3"};
 
     @PostConstruct
     private void initList() {
@@ -77,5 +77,6 @@ public class CardPropositionListBB implements Serializable {
 
     public void deleteProposition(Long id) {
         cardPropositionDao.delete(id);
+        initList();
     }
 }

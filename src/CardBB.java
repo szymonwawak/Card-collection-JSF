@@ -1,41 +1,79 @@
 import dao.CardDao;
 import dao.CardPropositionDao;
+import dao.UserDao;
 import entities.Card;
 import entities.CardProposition;
 
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.view.ViewScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
+import java.util.Arrays;
 
 @Named("cardBB")
-@ViewScoped
+@RequestScoped
 public class CardBB implements Serializable {
-    private String name = "userList";
-    private String description;
-    private String fraction;
     private int cost;
     private int attack;
     private int health;
-
-    public String getFilePath() {
-        return filePath;
-    }
-
-    public void setFilePath(String filePath) {
-        this.filePath = filePath;
-    }
-
     private int scrapsCost;
     private int scrapsEarned;
-    private String filePath = "default.png";
-
+    private String name;
+    private String description;
+    private String fraction;
+    private String[] fractions = {"Fraction 1", "Fraction 2", "Fraction 3"};
+    private String rarity;
+    private String[] rarities = {"Common", "Rare", "Epic", "Legendary"};
+    private int[] scrapsCostArray = {40, 100, 400, 1600};
+    private int[] scrapsEarnedArray = {5, 20, 100, 400};
+    private String filename = "default.png";
+    private int index;
     @EJB
     CardDao cardDao;
 
     @EJB
+    UserDao userDao;
+
+    @EJB
     CardPropositionDao cardPropositionDao;
+
+    @Inject
+    FacesContext facesContext;
+
+    public String[] getFractions() {
+        return fractions;
+    }
+
+    public void setFractions(String[] fractions) {
+        this.fractions = fractions;
+    }
+
+    public String[] getRarities() {
+        return rarities;
+    }
+
+    public void setRarities(String[] rarities) {
+        this.rarities = rarities;
+    }
+
+    public int[] getScrapsCostArray() {
+        return scrapsCostArray;
+    }
+
+    public void setScrapsCostArray(int[] scrapsCostArray) {
+        this.scrapsCostArray = scrapsCostArray;
+    }
+
+    public int[] getScrapsEarnedArray() {
+        return scrapsEarnedArray;
+    }
+
+    public void setScrapsEarnedArray(int[] scrapsEarnedArray) {
+        this.scrapsEarnedArray = scrapsEarnedArray;
+    }
 
     public String getName() {
         return name;
@@ -43,11 +81,6 @@ public class CardBB implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @PostConstruct
-    private void setUp() {
-        this.name = "name";
     }
 
     public String getDescription() {
@@ -106,13 +139,35 @@ public class CardBB implements Serializable {
         this.fraction = fraction;
     }
 
+    public String getRarity() {
+        return rarity;
+    }
+
+    public void setRarity(String rarity) {
+        this.rarity = rarity;
+    }
+
     public void saveCard() {
-        Card card = new Card(name, description, cost, attack, health, fraction, "Legendarna", scrapsCost, scrapsEarned, filePath);
+        Card card = new Card(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename);
         cardDao.create(card);
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Karta została dodana", null));
+
     }
 
     public void saveProposition() {
-        CardProposition proposition = new CardProposition(name, "admin", description, cost, attack, health, fraction, "Legendarna", scrapsCost, scrapsEarned, filePath);
+        CardProposition proposition = new CardProposition(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename, userDao.read(Utils.getCurrentUserId()));
         cardPropositionDao.create(proposition);
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Propozycja została dodana", null));
+    }
+
+    public void scrapsCostChange() {
+        index = Arrays.binarySearch(scrapsCostArray, scrapsCost);
+        scrapsEarned = scrapsEarnedArray[index];
+    }
+
+    public void scrapsEarnedChange() {
+        index = Arrays.binarySearch(scrapsEarnedArray, scrapsEarned);
+        scrapsEarned = scrapsCostArray[index];
+
     }
 }

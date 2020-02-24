@@ -3,7 +3,7 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:p="http://primefaces.org/ui">
-    <h:form enctype="multipart/form-data">
+    <h:form enctype="multipart/form-data" id="upload">
         <p:growl id="cardGrowl" sticky="true" showDetail="true" life="3000"/>
         <p:dialog header="Edycja profilu" widgetVar="editProfile" resizable="false">
             <h:panelGrid columns="2" cellpadding="5">
@@ -19,10 +19,10 @@
                 <h:outputLabel for="oldPassword" value="Stare hasło:"/>
                 <p:inputText id="oldPassword" value="#{editProfileBB.oldPassword}" required="true" label="oldPassword"/>
 
-                <p:fileUpload fileUploadListener="#{editProfileBB.fileListener}"
-                              mode="advanced"
-                              sizeLimit="100000"
-                              allowTypes="/(\.|\/)(gif|jpe?g|png)$/"/> </h:panelGrid>
+                <p:fileUpload listener="#{editProfileBB.fileListener}" mode="advanced" dragDropSupport="false"/>
+                <p:commandButton value="Dodaj" icon="pi pi-check" action="#{editProfileBB.saveChanges}" ajax="true"
+                                 mode="simple" update="cardGrowl"/>
+            </h:panelGrid>
         </p:dialog>
     </h:form>
 </ui:composition>

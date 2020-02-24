@@ -17,7 +17,8 @@
             </f:facet>
             <p:dataViewListItem>
                 <h:panelGrid columns="3" cellpadding="20 " cellspacing="10" styleClass="font-bangers"
-                             style="font-size:20px;">
+                             style="font-size:20px;"
+                             columnClasses="user-name-col, user-collection-col, user-delete-col">
                     <h:column>
                         <h:outputText value="Nazwa: "/>
                         <h:outputText value="#{user.name}  " style="font-weight: bold"/>
@@ -27,8 +28,9 @@
                                          immediate="true" action="#{panelBB.showUserCollection(user)}"
                                          update="mainPanel"/>
                     </h:column>
-                    <h:column rendered="#{userData.hasRole('admin')}">
-                        <p:commandButton value="Usuń użytkownika" styleClass="font-bangers" style="font-size:20px;"
+                    <h:column>
+                        <p:commandButton rendered="#{userData.hasRole('admin')}" value="Usuń użytkownika"
+                                         styleClass="font-bangers" style="font-size:20px;"
                                          immediate="true" action="#{userListBB.deleteUser(user)}" update="mainPanel"/>
                     </h:column>
                 </h:panelGrid>

@@ -11,10 +11,11 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.Serializable;
 
 @Named
 @RequestScoped
-public class LoginBB {
+public class LoginBB implements Serializable {
 
     private String email;
     private String password;
@@ -50,12 +51,12 @@ public class LoginBB {
 
     @Inject
     FacesContext facesContext;
-
     public String login() {
         if (!validate()) {
             setVisible(true);
             return null;
         }
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
         HttpSession session = request.getSession();
@@ -78,5 +79,11 @@ public class LoginBB {
             return false;
         }
         return true;
+    }
+
+    public String logout() {
+        HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
+        session.invalidate();
+        return "/index.xhtml";
     }
 }

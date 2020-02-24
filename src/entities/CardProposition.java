@@ -24,7 +24,7 @@ public class CardProposition {
     public CardProposition() {
     }
 
-    public CardProposition(String name, String userName, String description, Integer cost, Integer attack, Integer health, String fraction, String rarity, Integer scrapsCost, Integer scrapsEarned, String filename) {
+    public CardProposition(String name, String description, Integer cost, Integer attack, Integer health, String fraction, String rarity, Integer scrapsCost, Integer scrapsEarned, String filename, User user) {
         this.name = name;
         this.description = description;
         this.cost = cost;
@@ -35,6 +35,7 @@ public class CardProposition {
         this.scrapsCost = scrapsCost;
         this.scrapsEarned = scrapsEarned;
         this.createdAt = new Timestamp(System.currentTimeMillis());
+        this.userByUserId = user;
     }
 
     @Id

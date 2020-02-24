@@ -12,8 +12,13 @@ public class UserSessionData {
     private String name;
     private String remoteHost;
     private String avatar;
+    private long id;
 
     private HashSet<String> roles = new HashSet();
+
+    public long getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
@@ -23,6 +28,7 @@ public class UserSessionData {
         this.email = user.getEmail();
         this.name = user.getName();
         this.avatar = user.getAvatar();
+        this.id = user.getId();
         this.remoteHost = remoteHost;
         setRoles(user.getRoles());
     }

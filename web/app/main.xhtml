@@ -12,7 +12,10 @@
     <b:navBar position="top" sticky="true" id="mainNav">
         <div class="container">
             <b:navbarLinks pull="right" class="main-navbar">
-                <b:navLink class="nav-item nav-register" action="#{loginBB.logout}">Wyloguj</b:navLink>
+                <h:form>
+                    <b:navCommandLink class="nav-item nav-register"
+                                      action="#{loginBB.logout()}">Wyloguj</b:navCommandLink>
+                </h:form>
             </b:navbarLinks>
             <h:graphicImage library="images" name="avatars/default-avatar.png" styleClass="avatar-image"
                             onclick="PF('editProfile').show();"/>
@@ -42,13 +45,14 @@
                 <f:param name="i" value="4"/>
             </p:menuitem>
             <p:menuitem value="Dodaj kartę" icon="pi pi-search" rendered="#{userData.hasRole('admin')}"
-                        onclick="PF('addCard').show();">
+                        onclick="PF('createCard').show();">
                 <f:param name="i" value="5"/>
             </p:menuitem>
 
 
         </p:tabMenu>
     </h:form>
+    <p:growl id="cardGrowl" sticky="true" showDetail="true" life="3000"/>
     <ui:include src="createCard.xhtml"/>
     <ui:include src="createProposition.xhtml"/>
     <ui:include src="editProfile.xhtml"/>

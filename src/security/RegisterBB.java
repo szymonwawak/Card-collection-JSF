@@ -73,6 +73,7 @@ public class RegisterBB {
             return null;
         }
         user = userDao.registerUser(username, email, password);
+        facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
         UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
         HttpSession session = request.getSession();

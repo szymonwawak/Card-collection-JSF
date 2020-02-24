@@ -5,9 +5,7 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui">
     <h:form>
-        <p:growl id="cardGrowl" sticky="true" showDetail="true" life="3000"/>
-        <p:dialog header="Propozycja karty" widgetVar="addCard" resizable="false">
-
+        <p:dialog header="Propozycja karty" widgetVar="createCard" resizable="false">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="name" value="Nazwa:"/>
                 <p:inputText id="name" value="#{cardBB.name}" required="true" label="name"/>
@@ -25,29 +23,35 @@
                 <p:inputText id="health" value="#{cardBB.health}" required="true" label="health">
                     <f:converter converterId="javax.faces.Integer"/>
                 </p:inputText>
+                <h:outputLabel for="rarity" value="Rzadkość:"/>
+                <p:selectOneMenu value="#{cardBB.rarity}" required="true" id="rarity" style="width:100%">
+                    <f:selectItem itemLabel="Wybierz rzadkość:" itemValue=""/>
+                    <f:selectItems value="#{cardBB.rarities}"/>
+                </p:selectOneMenu>
 
                 <h:outputLabel for="fraction" value="Frakcja:"/>
-                <p:selectOneMenu value="#{cardBB.fraction}" id="fraction" style="width:100%">
-                    <f:selectItem itemLabel="Rząd" itemValue="Rząd"/>
-                    <f:selectItem itemLabel="Opozycja" itemValue="Opozycja"/>
-                    <f:selectItem itemLabel="Nierząd" itemValue="Nierząd"/>
+                <p:selectOneMenu value="#{cardBB.fraction}" required="true" id="fraction" style="width:100%">
+                    <f:selectItem itemLabel="Wybierz frakcję" itemValue=""/>
+                    <f:selectItems value="#{cardBB.fractions}"/>
+
                 </p:selectOneMenu>
                 <h:outputLabel for="scrapsCost" value="Skrawki (koszt):"/>
-                <p:selectOneMenu value="#{cardBB.scrapsCost}" id="scrapsCost" style="width:100%">
-                    <f:selectItem itemLabel="50" itemValue="50"/>
-                    <f:selectItem itemLabel="100" itemValue="100"/>
-                    <f:selectItem itemLabel="400" itemValue="400"/>
-                    <f:selectItem itemLabel="1600" itemValue="1600"/>
+                <p:selectOneMenu value="#{cardBB.scrapsCost}" required="true" id="scrapsCost"
+                                 converter="javax.faces.Integer" style="width:100%">
+                    <p:ajax event="valueChange" listener="#{cardBB.scrapsCostChange}" update="scrapsEarned"/>
+                    <f:selectItem itemLabel="Wybierz koszt" itemValue=""/>
+                    <f:selectItems value="#{cardBB.scrapsCostArray}"/>
                 </p:selectOneMenu>
                 <h:outputLabel for="scrapsEarned" value="Skrawki (zysk):"/>
-                <p:selectOneMenu value="#{cardBB.scrapsEarned}" id="scrapsEarned" style="width:100%">
-                    <f:selectItem itemLabel="5" itemValue="5"/>
-                    <f:selectItem itemLabel="20" itemValue="20"/>
-                    <f:selectItem itemLabel="100" itemValue="100"/>
-                    <f:selectItem itemLabel="400" itemValue="400"/>
+                <p:selectOneMenu value="#{cardBB.scrapsEarned}" required="true" id="scrapsEarned"
+                                 converter="javax.faces.Integer" style="width:100%">
+                    <p:ajax event="valueChange" listener="#{cardBB.scrapsEarnedChange}" update="scrapsCost"/>
+                    <f:selectItem itemLabel="Wybierz zysk:" itemValue=""/>
+                    <f:selectItems value="#{cardBB.scrapsEarnedArray}"/>
                 </p:selectOneMenu>
             </h:panelGrid>
-            <p:commandButton value="Zatwierdź" update="cardGrowl" action="#{cardBB.saveCard()}"/>
+            <p:commandButton value="Zatwierdź" onsuccess="PF('createCard').hide();" update="cardGrowl, mainPanel"
+                             action="#{cardBB.saveCard()}"/>
         </p:dialog>
     </h:form>
 </ui:composition>

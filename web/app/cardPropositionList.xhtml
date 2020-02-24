@@ -6,7 +6,8 @@
                 xmlns:f="http://java.sun.com/jsf/core">
     <h:form id="form">
         <p:growl id="msgs" showDetail="true"/>
-        <p:dataTable var="card" value="#{cardPropositionListBB.cardPropositions}" widgetVar="cardsTable" id="cardsList"
+        <p:dataTable var="card" tableStyle="width: auto" value="#{cardPropositionListBB.cardPropositions}"
+                     widgetVar="cardPropositionsTable" id="cardsList"
                      editable="true"
                      emptyMessage="No cards found with given criteria"
                      filteredValue="#{cardPropositionListBB.filteredCards}" paginator="true" paginatorPosition="bottom"
@@ -14,7 +15,7 @@
             <f:facet name="header">
                 <p:outputPanel>
                     <h:outputText value="Search all fields:"/>
-                    <p:inputText id="globalFilter" onkeyup="PF('cardsTable').filter()" style="width:150px"
+                    <p:inputText id="globalFilter" onkeyup="PF('cardPropositionsTable').filter()" style="width:150px"
                                  placeholder="Enter keyword"/>
                 </p:outputPanel>
             </f:facet>
@@ -71,7 +72,7 @@
                     </f:facet>
                 </p:cellEditor>
                 <f:facet name="filter">
-                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                    <p:selectOneMenu onchange="PF('cardPropositionsTable').filter()" styleClass="custom-filter">
                         <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{cardPropositionListBB.scrapsCost}"/>
                     </p:selectOneMenu>
@@ -90,7 +91,7 @@
                     </f:facet>
                 </p:cellEditor>
                 <f:facet name="filter">
-                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                    <p:selectOneMenu onchange="PF('cardPropositionsTable').filter()" styleClass="custom-filter">
                         <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{cardPropositionListBB.scrapsEarned}"/>
                     </p:selectOneMenu>
@@ -109,7 +110,7 @@
                     </f:facet>
                 </p:cellEditor>
                 <f:facet name="filter">
-                    <p:selectOneMenu onchange="PF('cardsTable').filter()" styleClass="custom-filter">
+                    <p:selectOneMenu onchange="PF('cardPropositionsTable').filter()" styleClass="custom-filter">
                         <f:selectItem itemLabel="Wybierz" itemValue="#{null}" noSelectionOption="true"/>
                         <f:selectItems value="#{cardPropositionListBB.fractions}"/>
                     </p:selectOneMenu>
