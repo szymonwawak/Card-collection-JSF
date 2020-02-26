@@ -105,8 +105,7 @@ public class UserDao extends BasicDao<User> {
         return read(currentUserId);
     }
 
-    public void updateProfile(User user, String name, String email, String newPassword) {
-        user.setName(name);
+    public void updateProfile(User user, String email, String newPassword) {
         user.setEmail(email);
         user.setPassword(hashPassword(newPassword));
         update(user);

@@ -19,11 +19,12 @@ public class EditProfileBB {
     @EJB
     UserDao userDao;
 
-    private String name;
     private String email;
     private String oldPassword;
     private String newPassword;
     private UploadedFile file;
+    User user;
+    User currentUser;
 
     public UploadedFile getFile() {
         return file;
@@ -31,14 +32,6 @@ public class EditProfileBB {
 
     public void setFile(UploadedFile file) {
         this.file = file;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getEmail() {
@@ -66,17 +59,22 @@ public class EditProfileBB {
     }
 
     public void saveChanges() {
-        User currentUser = userDao.getCurrentUser();
-        User user = userDao.findUserByLoginCredentials(currentUser.getEmail(), oldPassword);
+        currentUser = userDao.getCurrentUser();
+        user = userDao.findUserByLoginCredentials(currentUser.getEmail(), oldPassword);
         if (user == null) {
             facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podano błędne hasło!", null));
             return;
         }
-        if (userDao.findByNameOrEmail(name, email) != null) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niestety ten login lub e-mail jest już zajęty!", null));
+        if (areCredentialsAvailable()) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niestety ten e-mail jest już zajęty!", null));
             return;
         }
-        userDao.updateProfile(user, name, email, newPassword);
+        userDao.updateProfile(user, email, newPassword);
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dane zostały zmienione!", null));
+    }
+
+    private boolean areCredentialsAvailable() {
+        User foundUser = userDao.findByNameOrEmail("", email);
+        return foundUser != null;
     }
 }

@@ -15,6 +15,13 @@ import javax.servlet.http.HttpSession;
 @Named
 @RequestScoped
 public class RegisterBB {
+
+    @EJB
+    UserDao userDao;
+
+    @Inject
+    FacesContext facesContext;
+
     private String email;
     private String username;
     private String password;
@@ -60,12 +67,6 @@ public class RegisterBB {
     public void setUser(User user) {
         this.user = user;
     }
-
-    @EJB
-    UserDao userDao;
-
-    @Inject
-    FacesContext facesContext;
 
     public String register() {
         if (!validate()) {
