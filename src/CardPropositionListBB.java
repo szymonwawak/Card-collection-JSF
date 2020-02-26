@@ -16,19 +16,29 @@ import java.util.List;
 @Named
 @ViewScoped
 public class CardPropositionListBB implements Serializable {
+
     @Inject
     Flash flash;
 
     @EJB
     CardPropositionDao cardPropositionDao;
 
+    List<CardProposition> cardPropositions;
+    private List<Card> filteredCards;
+    private int[] scrapsCost = new int[]{40, 100, 400, 1600};
+    private int[] scrapsEarned = new int[]{5, 20, 100, 400};
+    private String[] fractions = new String[]{"Fraction 1", "Fraction 2", "Fraction 3"};
+
+    @PostConstruct
+    private void initList() {
+        cardPropositions = cardPropositionDao.getAll();
+    }
+
     public List<CardProposition> getCardPropositions() {
         if (flash.get("forceRefresh") != null && (Boolean) flash.get("forceRefresh") == true)
             initList();
         return cardPropositions;
     }
-
-    private List<Card> filteredCards;
 
     public List<Card> getFilteredCards() {
         return filteredCards;
@@ -38,11 +48,6 @@ public class CardPropositionListBB implements Serializable {
         this.filteredCards = filteredCards;
     }
 
-    List<CardProposition> cardPropositions;
-
-    int[] scrapsCost = new int[]{40, 100, 400, 1600};
-    int[] scrapsEarned = new int[]{5, 20, 100, 400};
-
     public String[] getFractions() {
         return fractions;
     }
@@ -51,19 +56,17 @@ public class CardPropositionListBB implements Serializable {
         this.fractions = fractions;
     }
 
-    String[] fractions = new String[]{"Fraction 1", "Fraction 2", "Fraction 3"};
-
-    @PostConstruct
-    private void initList() {
-        cardPropositions = cardPropositionDao.getAll();
-    }
-
     public int[] getScrapsCost() {
         return scrapsCost;
     }
 
     public int[] getScrapsEarned() {
         return scrapsEarned;
+    }
+
+    public void deleteProposition(Long id) {
+        cardPropositionDao.delete(id);
+        initList();
     }
 
     public void onRowEdit(CardProposition cardProposition) {
@@ -75,10 +78,5 @@ public class CardPropositionListBB implements Serializable {
     public void onRowCancelEdit() {
         FacesMessage msg = new FacesMessage("Anulowano edycję");
         FacesContext.getCurrentInstance().addMessage(null, msg);
-    }
-
-    public void deleteProposition(Long id) {
-        cardPropositionDao.delete(id);
-        initList();
     }
 }

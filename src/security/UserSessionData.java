@@ -8,13 +8,19 @@ import java.util.HashSet;
 
 public class UserSessionData {
 
+    private long id;
     private String email;
     private String name;
-    private String remoteHost;
     private String avatar;
-    private long id;
-
     private HashSet<String> roles = new HashSet();
+
+    public UserSessionData(User user) {
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.avatar = user.getAvatar();
+        this.id = user.getId();
+        setRoles(user.getRoles());
+    }
 
     public long getId() {
         return id;
@@ -24,27 +30,18 @@ public class UserSessionData {
         return name;
     }
 
-    public UserSessionData(User user, String remoteHost) {
-        this.email = user.getEmail();
-        this.name = user.getName();
-        this.avatar = user.getAvatar();
-        this.id = user.getId();
-        this.remoteHost = remoteHost;
-        setRoles(user.getRoles());
-    }
-
-    private void setRoles(Collection<Role> roles) {
-        for (Role role : roles) {
-            this.roles.add(role.getName());
-        }
-    }
-
     public String getEmail() {
         return email;
     }
 
     public String getAvatar() {
         return avatar;
+    }
+
+    private void setRoles(Collection<Role> roles) {
+        for (Role role : roles) {
+            this.roles.add(role.getName());
+        }
     }
 
     public boolean hasRole(String role) {

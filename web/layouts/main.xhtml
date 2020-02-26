@@ -10,12 +10,12 @@
 <h:body>
     <b:navBar position="top" sticky="true" id="mainNav">
         <div class="container">
-            <p:growl id="growl" showDetail="true" sticky="true"/>
+            <p:growl id="growl" sticky="true"/>
             <b:navbarLinks pull="right" class="main-navbar">
                 <b:navLink class="nav-item nav-login"
-                           onclick="PF('registerPanel').close();setTimeout(PF('loginPanel').show(), 2000); ">Zaloguj się</b:navLink>
+                           onclick="PF('registerPanel').close();PF('loginPanel').show(); ">Zaloguj się</b:navLink>
                 <b:navLink class="nav-item nav-register"
-                           onclick="PF('loginPanel').close();setTimeout(PF('registerPanel').show(), 2000);">Zarejestruj</b:navLink>
+                           onclick="PF('loginPanel').close();PF('registerPanel').show();">Zarejestruj</b:navLink>
             </b:navbarLinks>
         </div>
     </b:navBar>

@@ -17,6 +17,22 @@ import java.util.Arrays;
 @Named("cardBB")
 @RequestScoped
 public class CardBB implements Serializable {
+
+    @EJB
+    CardDao cardDao;
+
+    @EJB
+    UserDao userDao;
+
+    @EJB
+    CardPropositionDao cardPropositionDao;
+
+    @Inject
+    FacesContext facesContext;
+
+    @Inject
+    Flash flash;
+
     private int cost;
     private int attack;
     private int health;
@@ -32,20 +48,6 @@ public class CardBB implements Serializable {
     private int[] scrapsEarnedArray = {5, 20, 100, 400};
     private String filename = "default.png";
     private int index;
-    @EJB
-    CardDao cardDao;
-
-    @EJB
-    UserDao userDao;
-
-    @EJB
-    CardPropositionDao cardPropositionDao;
-
-    @Inject
-    FacesContext facesContext;
-
-    @Inject
-    Flash flash;
 
     public String[] getFractions() {
         return fractions;
@@ -159,18 +161,18 @@ public class CardBB implements Serializable {
     }
 
     public void saveProposition() {
-        CardProposition proposition = new CardProposition(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename, userDao.read(Utils.getCurrentUserId()));
+        CardProposition proposition = new CardProposition(name, description, cost, attack, health, fraction, rarity, scrapsCost, scrapsEarned, filename, userDao.getCurrentUser());
         cardPropositionDao.create(proposition);
         facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Propozycja została dodana", null));
         flash.put("forceRefresh", true);
     }
 
-    public void scrapsCostChange() {
+    public void onScrapsCostChange() {
         index = Arrays.binarySearch(scrapsCostArray, scrapsCost);
         scrapsEarned = scrapsEarnedArray[index];
     }
 
-    public void scrapsEarnedChange() {
+    public void onScrapsEarnedChange() {
         index = Arrays.binarySearch(scrapsEarnedArray, scrapsEarned);
         scrapsCost = scrapsCostArray[index];
 

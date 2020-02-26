@@ -38,14 +38,14 @@
                <h:outputLabel for="scrapsCost" value="Skrawki (koszt):"/>
                <p:selectOneMenu value="#{cardBB.scrapsCost}" required="true" id="scrapsCost"
                                 converter="javax.faces.Integer" style="width:100%">
-                   <p:ajax event="valueChange" listener="#{cardBB.scrapsCostChange}" update="scrapsEarned"/>
+                   <p:ajax event="valueChange" listener="#{cardBB.onScrapsCostChange}" update="scrapsEarned"/>
                    <f:selectItem itemLabel="Wybierz koszt" itemValue=""/>
                    <f:selectItems value="#{cardBB.scrapsCostArray}"/>
                </p:selectOneMenu>
                <h:outputLabel for="scrapsEarned" value="Skrawki (zysk):"/>
                <p:selectOneMenu value="#{cardBB.scrapsEarned}" required="true" id="scrapsEarned"
                                 converter="javax.faces.Integer" style="width:100%">
-                   <p:ajax event="valueChange" listener="#{cardBB.scrapsEarnedChange}" update="scrapsCost"/>
+                   <p:ajax event="valueChange" listener="#{cardBB.onScrapsEarnedChange}" update="scrapsCost"/>
                    <f:selectItem itemLabel="Wybierz zysk:" itemValue=""/>
                    <f:selectItems value="#{cardBB.scrapsEarnedArray}"/>
                </p:selectOneMenu>

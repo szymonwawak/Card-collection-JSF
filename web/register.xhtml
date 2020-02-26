@@ -13,11 +13,14 @@
         <h:form>
             <h:panelGrid layout="flex" columns="2" cellspacing="10" styleClass="margin-auto">
                 <h:outputLabel for="email" value="Adres e-mail:"/>
-                <p:inputText id="email" type="email" value="#{registerBB.email}" required="true"/>
+                <p:inputText id="email" type="email" value="#{registerBB.email}" required="true"
+                             requiredMessage="Uwaga! Nie podano adresu e-mail!"/>
                 <h:outputLabel for="name" value="Nazwa użytkownika:"/>
-                <p:inputText id="name" value="#{registerBB.username}"/>
+                <p:inputText id="name" value="#{registerBB.username}" required="true"
+                             requiredMessage="Uwaga! Nie podano nazwy użytkownika!"/>
                 <h:outputLabel for="password" value="Hasło:"/>
-                <p:password id="password" value="#{registerBB.password}"/>
+                <p:password id="password" value="#{registerBB.password}" required="true"
+                            requiredMessage="Uwaga! Nie podano hasła!"/>
             </h:panelGrid>
             <b:commandButton action="#{registerBB.register}" class="btn btn-primary tm-10"
                              update="growl" value="Zarejestruj"/>

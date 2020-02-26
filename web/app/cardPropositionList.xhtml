@@ -5,7 +5,6 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core">
     <h:form id="form">
-        <p:growl id="msgs" showDetail="true"/>
         <p:dataTable var="card" tableStyle="width: auto" value="#{cardPropositionListBB.cardPropositions}"
                      widgetVar="cardPropositionsTable" id="cardsList"
                      editable="true"
@@ -20,8 +19,8 @@
                 </p:outputPanel>
             </f:facet>
 
-            <p:ajax event="rowEdit" listener="#{cardPropositionListBB.onRowEdit(card)}" update=":form:msgs"/>
-            <p:ajax event="rowEditCancel" listener="#{cardPropositionListBB.onRowCancelEdit}" update=":form:msgs"/>
+            <p:ajax event="rowEdit" listener="#{cardPropositionListBB.onRowEdit(card)}" update="cardGrowl"/>
+            <p:ajax event="rowEditCancel" listener="#{cardPropositionListBB.onRowCancelEdit}" update="cardGrowl"/>
 
             <p:column filterBy="#{card.name}" headerText="Nazwa" filterMatchMode="contains">
                 <p:cellEditor>

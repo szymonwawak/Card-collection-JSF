@@ -20,7 +20,6 @@ public class Card {
     private String filename;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private Collection<Deck> Decks;
     private Collection<User> Users;
 
     public Card() {
@@ -194,15 +193,6 @@ public class Card {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, cost, attack, health, rarity, fraction, scrapsCost, scrapsEarned, filename, createdAt, updatedAt);
-    }
-
-    @ManyToMany(mappedBy = "deckCards")
-    public Collection<Deck> getDecks() {
-        return Decks;
-    }
-
-    public void setDecks(Collection<Deck> decks) {
-        Decks = decks;
     }
 
     @ManyToMany

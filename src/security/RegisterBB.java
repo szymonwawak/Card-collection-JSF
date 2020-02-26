@@ -75,39 +75,21 @@ public class RegisterBB {
         user = userDao.registerUser(username, email, password);
         facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
+        UserSessionData userSessionData = new UserSessionData(user);
         HttpSession session = request.getSession();
         session.setAttribute("userData", userSessionData);
         return "/app/main.xhtml";
-
-
     }
 
     public boolean validate() {
-        boolean validated = true;
-        if (email.isEmpty()) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano adresu e-mail!"));
-            validated = false;
-        }
         if (!email.matches("[\\w\\.-]*[a-zA-Z0-9_]@[\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]")) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Podano błędny adres e-mail!"));
-            validated = false;
-        }
-        if (username.isEmpty()) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano nazwy użytkownika!"));
-            validated = false;
-        }
-        if (password.isEmpty()) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano hasła!"));
-            validated = false;
-        }
-        if (!validated)
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga! Podano błędny adres e-mail!", ""));
             return false;
-
+        }
         user = userDao.findByNameOrEmail(username, email);
         if (user != null) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd",
-                    "Użytkownik o takim adresie e-mail lub loginie już istnieje!"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd! Użytkownik o takim adresie e-mail lub loginie już istnieje!",
+                    ""));
             return false;
         }
         return true;

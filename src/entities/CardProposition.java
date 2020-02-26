@@ -19,7 +19,7 @@ public class CardProposition {
     private Integer scrapsEarned;
     private Timestamp createdAt;
     private Timestamp updatedAt;
-    private User userByUserId;
+    private User user;
 
     public CardProposition() {
     }
@@ -35,7 +35,7 @@ public class CardProposition {
         this.scrapsCost = scrapsCost;
         this.scrapsEarned = scrapsEarned;
         this.createdAt = new Timestamp(System.currentTimeMillis());
-        this.userByUserId = user;
+        this.user = user;
     }
 
     @Id
@@ -185,11 +185,11 @@ public class CardProposition {
 
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
-    public User getUserByUserId() {
-        return userByUserId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserByUserId(User userByUserId) {
-        this.userByUserId = userByUserId;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

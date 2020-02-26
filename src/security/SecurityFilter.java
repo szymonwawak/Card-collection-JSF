@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 
 public class SecurityFilter implements Filter {
+
     private String loginPage;
     private HashMap<String, HashSet<String>> accessRules = new HashMap<>();
     private HashSet<String> publicResources = new HashSet<>();
@@ -25,7 +26,7 @@ public class SecurityFilter implements Filter {
         if (loginPage != null)
             this.loginPage = loginPage;
         else
-            this.loginPage = "/index.xhtml";
+            this.loginPage = "/index";
         this.loginPage = this.loginPage + "?faces-redirect=true";
     }
 

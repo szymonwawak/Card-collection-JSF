@@ -8,20 +8,24 @@
         <p:dialog header="Edycja profilu" widgetVar="editProfile" resizable="false">
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="name" value="Nazwa:"/>
-                <p:inputText id="name" value="#{editProfileBB.name}" required="true" label="name"/>
+                <p:inputText id="name" value="#{editProfileBB.name}" required="true"
+                             requiredMessage="Nazwa użytkownika jest wymagana!" label="name"/>
 
                 <h:outputLabel for="eMail" value="E-mail:"/>
-                <p:inputText id="eMail" value="#{editProfileBB.email}" required="true" label="eMail"/>
+                <p:inputText id="eMail" value="#{editProfileBB.email}" required="true"
+                             requiredMessage="E-mail jest wymagany!" label="eMail"/>
 
                 <h:outputLabel for="newPassword" value="Nowe hasło:"/>
-                <p:inputText id="newPassword" value="#{editProfileBB.newPassword}" required="true" label="newPassword"/>
+                <p:inputText id="newPassword" value="#{editProfileBB.newPassword}" required="true"
+                             requiredMessage="Hasło jest wymagane!" label="newPassword"/>
 
                 <h:outputLabel for="oldPassword" value="Stare hasło:"/>
-                <p:inputText id="oldPassword" value="#{editProfileBB.oldPassword}" required="true" label="oldPassword"/>
+                <p:inputText id="oldPassword" value="#{editProfileBB.oldPassword}" required="true"
+                             requiredMessage="Hasło jest wymagane!" label="oldPassword"/>
 
-                <p:fileUpload listener="#{editProfileBB.fileListener}" mode="advanced" dragDropSupport="false"/>
-                <p:commandButton value="Dodaj" icon="pi pi-check" action="#{editProfileBB.saveChanges}" ajax="true"
-                                 mode="simple" update="cardGrowl"/>
+                <p:fileUpload value="#{editProfileBB.file}" mode="simple"/>
+                <p:commandButton value="Zatwierdź" icon="pi pi-check" action="#{editProfileBB.saveChanges}"
+                                 update="cardGrowl"/>
             </h:panelGrid>
         </p:dialog>
     </h:form>

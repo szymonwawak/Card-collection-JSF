@@ -19,9 +19,8 @@ public class User {
     private List<Card> cards;
     private Collection<Role> roles;
     private String avatar;
-    private Collection<CardProposition> cardPropositionsById;
-    private Collection<Deck> decksById;
-    private Statistics statisticsByStatisticsId;
+    private Collection<CardProposition> cardPropositions;
+    private Statistics statistics;
 
     public User() {
 
@@ -36,7 +35,7 @@ public class User {
         this.roles = roles;
         this.cards = cards;
         this.avatar = "default-avatar.jpg";
-        this.statisticsByStatisticsId = statistics;
+        this.statistics = statistics;
     }
 
     @Id
@@ -159,7 +158,7 @@ public class User {
     public void setRoles(Collection<Role> roles) {
         this.roles = roles;
     }
-    
+
     @Basic
     @Column(name = "avatar", nullable = false, length = 40)
     public String getAvatar() {
@@ -170,31 +169,22 @@ public class User {
         this.avatar = avatar;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<CardProposition> getCardPropositionsById() {
-        return cardPropositionsById;
+    @OneToMany(mappedBy = "user")
+    public Collection<CardProposition> getCardPropositions() {
+        return cardPropositions;
     }
 
-    public void setCardPropositionsById(Collection<CardProposition> cardPropositionsById) {
-        this.cardPropositionsById = cardPropositionsById;
+    public void setCardPropositions(Collection<CardProposition> cardPropositionsById) {
+        this.cardPropositions = cardPropositionsById;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<Deck> getDecksById() {
-        return decksById;
-    }
-
-    public void setDecksById(Collection<Deck> decksById) {
-        this.decksById = decksById;
-    }
-
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "statistics_id", referencedColumnName = "id", nullable = false)
-    public Statistics getStatisticsByStatisticsId() {
-        return statisticsByStatisticsId;
+    public Statistics getStatistics() {
+        return statistics;
     }
 
-    public void setStatisticsByStatisticsId(Statistics statisticsByStatisticsId) {
-        this.statisticsByStatisticsId = statisticsByStatisticsId;
+    public void setStatistics(Statistics statisticsByStatisticsId) {
+        this.statistics = statisticsByStatisticsId;
     }
 }

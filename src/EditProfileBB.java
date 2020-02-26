@@ -1,17 +1,13 @@
 import dao.UserDao;
 import entities.User;
-import org.primefaces.event.FileUploadEvent;
 import org.primefaces.model.UploadedFile;
-import security.UserSessionData;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 
 @Named
 @RequestScoped
@@ -19,15 +15,15 @@ public class EditProfileBB {
 
     @Inject
     FacesContext facesContext;
+
     @EJB
     UserDao userDao;
 
     private String name;
-
     private String email;
-
-    private String newPassword;
     private String oldPassword;
+    private String newPassword;
+    private UploadedFile file;
 
     public UploadedFile getFile() {
         return file;
@@ -36,8 +32,6 @@ public class EditProfileBB {
     public void setFile(UploadedFile file) {
         this.file = file;
     }
-
-    private UploadedFile file;
 
     public String getName() {
         return name;
@@ -55,14 +49,6 @@ public class EditProfileBB {
         this.email = email;
     }
 
-    public String getNewPassword() {
-        return newPassword;
-    }
-
-    public void setNewPassword(String newPassword) {
-        this.newPassword = newPassword;
-    }
-
     public String getOldPassword() {
         return oldPassword;
     }
@@ -71,17 +57,26 @@ public class EditProfileBB {
         this.oldPassword = oldPassword;
     }
 
-    public void fileListener(FileUploadEvent event) {
-        event.getFile();
-        System.out.println("dfsdfdf");
-        //FacesContext.getCurrentInstance().addMessage(null, msg);
+    public String getNewPassword() {
+        return newPassword;
+    }
+
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public void saveChanges() {
-        HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        HttpSession session = request.getSession();
-        UserSessionData userData = (UserSessionData) session.getAttribute("userData");
-        User user = userDao.findUserByLoginCredentials(userData.getEmail(), oldPassword);
+        User currentUser = userDao.getCurrentUser();
+        User user = userDao.findUserByLoginCredentials(currentUser.getEmail(), oldPassword);
+        if (user == null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Podano błędne hasło!", null));
+            return;
+        }
+        if (userDao.findByNameOrEmail(name, email) != null) {
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Niestety ten login lub e-mail jest już zajęty!", null));
+            return;
+        }
         userDao.updateProfile(user, name, email, newPassword);
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Dane zostały zmienione!", null));
     }
 }

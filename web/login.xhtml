@@ -12,9 +12,11 @@
         <h:form>
             <h:panelGrid layout="flex" columns="2" cellspacing="10" styleClass="margin-auto">
                 <h:outputLabel for="email" value="Adres e-mail:"/>
-                <p:inputText id="email" type="email" value="#{loginBB.email}"/>
+                <p:inputText id="email" type="email" value="#{loginBB.email}" required="true"
+                             requiredMessage="Uwaga! Nie podano adresu e-mail!"/>
                 <h:outputLabel for="password" value="Hasło:"/>
-                <p:password id="password" value="#{loginBB.password}"/>
+                <p:password id="password" value="#{loginBB.password}" required="true"
+                            requiredMessage="Uwaga! Nie podano hasła!"/>
             </h:panelGrid>
             <b:commandButton action="#{loginBB.login}" update="growl" class="btn btn-primary tm-10"
                              value="Zaloguj"/>

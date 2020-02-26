@@ -260,7 +260,7 @@ footer {
 
 .menu-header {
     background-image: url("#{resource['images/menu-header.jpg']}");
-    height: 20vh;
+    height: 24vh;
     background-size: cover;
 }
 
@@ -319,4 +319,13 @@ footer {
 .user-delete-col {
     width: 350px;
     padding: 15px 0;
+}
+
+.statistics-box {
+    background-color: rgb(84, 5, 129);
+    height: 80px;
+    width: 150px;
+    color: white;
+    font-family: Bangers;
+    font-size: 18px;
 }

@@ -1,4 +1,5 @@
 import dao.UserDao;
+import entities.Statistics;
 import entities.User;
 
 import javax.annotation.PostConstruct;
@@ -13,17 +14,36 @@ import java.io.Serializable;
 @SessionScoped
 public class PanelBB implements Serializable {
 
-    String page;
-
     @EJB
     UserDao userDao;
 
     @Inject
     Flash flash;
 
+    User user;
+    Statistics statistics;
+    String page;
+
     @PostConstruct
-    private void initPage() {
+    public void initPage() {
         page = "userList";
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Statistics getStatistics() {
+        initUser();
+        return statistics;
+    }
+
+    public void setStatistics(Statistics statistics) {
+        this.statistics = statistics;
     }
 
     public String getPage() {
@@ -35,7 +55,12 @@ public class PanelBB implements Serializable {
     }
 
     public void showUserCollection(User user) {
-        flash.put("username", user.getName());
+        flash.put("user", user);
         setPage("viewCollection");
+    }
+
+    private void initUser() {
+        user = userDao.getCurrentUser();
+        statistics = user.getStatistics();
     }
 }

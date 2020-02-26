@@ -19,6 +19,11 @@
             </b:navbarLinks>
             <h:graphicImage library="images" name="avatars/default-avatar.png" styleClass="avatar-image"
                             onclick="PF('editProfile').show();"/>
+            <h:panelGroup layout="block" id="statistics" styleClass="statistics-box">
+                <h:outputText value="Skrawki: #{panelBB.statistics.cardscraps}"></h:outputText><br/>
+                <h:outputText value="Zniszczone karty: #{panelBB.statistics.cardsDestroyed}"></h:outputText><br/>
+                <h:outputText value="Stworzone karty: #{panelBB.statistics.cardsCreated}"></h:outputText>
+            </h:panelGroup>
         </div>
     </b:navBar>
     <div class="menu-header"/>

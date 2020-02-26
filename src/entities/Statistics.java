@@ -12,6 +12,8 @@ public class Statistics {
     private Integer scrapsEarned;
     private Integer collectionValue;
     private Integer cardscraps;
+    private User user;
+
 
     public Statistics() {
         this.cardsCreated = 0;
@@ -110,5 +112,14 @@ public class Statistics {
     @Override
     public int hashCode() {
         return Objects.hash(id, cardsCreated, cardsDestroyed, scrapsUsed, scrapsEarned, collectionValue, cardscraps);
+    }
+
+    @OneToOne(mappedBy = "statistics")
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

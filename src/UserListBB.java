@@ -14,31 +14,27 @@ import java.util.List;
 @ViewScoped
 public class UserListBB implements Serializable {
 
-    @Inject
-    Flash flash;
-
     @EJB
     UserDao userDao;
 
-    List<User> users;
-    User user;
-    String name;
+    @Inject
+    Flash flash;
+
+    private User user;
+    private List<User> users;
+    private String name;
 
     @PostConstruct
     private void initList() {
         users = userDao.getAll();
     }
 
-    public String getName() {
-        return name;
+    public User getUser() {
+        return user;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void searchUsers() {
-        users = userDao.searchUserByName(name);
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public List<User> getUsers() {
@@ -52,12 +48,16 @@ public class UserListBB implements Serializable {
         this.users = users;
     }
 
-    public User getUser() {
-        return user;
+    public String getName() {
+        return name;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void searchUsers() {
+        users = userDao.searchUsersByName(name);
     }
 
     public void deleteUser(User user) {

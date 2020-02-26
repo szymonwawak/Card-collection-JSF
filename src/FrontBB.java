@@ -24,8 +24,4 @@ public class FrontBB implements Serializable {
     public void getRandomCardList() {
         cardNameList = cardDao.getRandomlyOrderedCardNames(9);
     }
-
-    public String redirect() {
-        return "/app/main?faces-redirect=true";
-    }
 }

@@ -51,6 +51,7 @@ public class LoginBB implements Serializable {
 
     @Inject
     FacesContext facesContext;
+
     public String login() {
         if (!validate()) {
             setVisible(true);
@@ -58,24 +59,17 @@ public class LoginBB implements Serializable {
         }
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) facesContext.getExternalContext().getRequest();
-        UserSessionData userSessionData = new UserSessionData(user, request.getRemoteHost());
+        UserSessionData userSessionData = new UserSessionData(user);
         HttpSession session = request.getSession();
         session.setAttribute("userData", userSessionData);
         return "/app/main.xhtml";
     }
 
     public boolean validate() {
-        if (email.isEmpty())
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano adresu e-mail!"));
-        if (password.isEmpty())
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Uwaga!", "Nie podano hasła!"));
-        if (email.isEmpty() || password.isEmpty())
-            return false;
-
         user = userDAO.findUserByLoginCredentials(email, password);
         if (user == null) {
-            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd!",
-                    "Niepoprawny adres e-mail lub hasło"));
+            facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Błąd! Niepoprawny adres e-mail lub hasło!",
+                    ""));
             return false;
         }
         return true;
@@ -84,6 +78,6 @@ public class LoginBB implements Serializable {
     public String logout() {
         HttpSession session = (HttpSession) FacesContext.getCurrentInstance().getExternalContext().getSession(true);
         session.invalidate();
-        return "/index.xhtml";
+        return "/index";
     }
 }
